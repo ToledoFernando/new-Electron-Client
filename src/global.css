@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+
+@font-face {
+  font-family: "MyFont";
+  src: url("/Quicksand-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-c1: #000000;
+  --font-c1: #fefefe;
+  --font: "MyFont", sans-serif;
+}
+
+html {
+  background-color: var(--bg-c1);
+  color: var(--font-c1);
+  font-family: var(--font);
+}
+
+body {
+  overflow-y: hidden;
+}

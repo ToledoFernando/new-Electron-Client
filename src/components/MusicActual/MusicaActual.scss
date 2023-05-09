@@ -1,0 +1,31 @@
+.musicaActual {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  img {
+    background-color: #dbd8d8;
+    padding: 40px;
+    border-radius: 20px;
+    margin: 30px 10px 20px 30px;
+  }
+}
+
+.info_music {
+  position: relative;
+  height: 180px;
+
+  h1 {
+    padding: 15px;
+  }
+
+  .nameLong {
+    font-size: 25px;
+  }
+  .name {
+    font-size: 30px;
+  }
+
+  .duration {
+    padding-left: 15px;
+  }
+}
