@@ -6,6 +6,7 @@ import "./MusicaActual.scss";
 function MusicaActual() {
   const musica = musicaActual((state) => state.musica);
   const [duration, setDuration] = useState<string | undefined>("00:00");
+  const [type, setType] = useState<string | undefined>("mp3");
 
   const time = (num: number) => {
     const minutos = Math.floor(num / 60);
@@ -19,7 +20,7 @@ function MusicaActual() {
     const audio = document.createElement("audio");
     audio.preload = "metadata";
     const blob = new Blob([musica.buffer], { type: "type/mp3" });
-    audio.onloadedmetadata = () => {
+    audio.onloadedmetadata = (evt) => {
       const result = time(audio.duration);
       setDuration(result);
     };
@@ -30,13 +31,19 @@ function MusicaActual() {
     <div className="musicaActual">
       <img src={logoMusica} alt="musicaLogo" width={100} height={100} />
       {!musica ? (
-        <h1>Seleccione una musica para escuchar</h1>
+        <div className="sinMusica">
+          <h1>Lista de musica local</h1>
+          <p>
+            Se cargaran automaticamente las musicas que se encuentren en la
+            carpeta la carpeta Musica
+          </p>
+        </div>
       ) : (
         <div className="info_music">
           <h1 className={musica.name.length <= 40 ? "name" : "nameLong"}>
             {musica.name.slice(0, -4)}
           </h1>
-          <p className="duration">- {duration}</p>
+          <p className="duration">- Duracion: {duration}</p>
         </div>
       )}
     </div>

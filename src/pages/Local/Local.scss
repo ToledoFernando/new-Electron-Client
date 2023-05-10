@@ -6,36 +6,53 @@
   flex: (3fr, 1);
 
   .fileLocal {
-    // flex: 2;
-    overflow-y: auto;
     display: flex;
     flex: (3fr, 2);
 
-    .list-group {
-      flex: 2;
-      overflow-y: scroll;
-      padding-bottom: 50px;
+    .searchMusic {
+      .inputSearch {
+        width: 100%;
+        text-align: center;
+        padding: 0px 0px 10px;
 
-      &::-webkit-scrollbar {
-        -webkit-appearance: none;
-      }
-      &::-webkit-scrollbar {
-        background-color: transparent;
-      }
-      &::-webkit-scrollbar:vertical {
-        width: 4px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: #828282;
-        border-radius: 20px;
-        border: 0;
+        input {
+          width: 70%;
+          padding: 10px 20px;
+          border-radius: 7px;
+          outline: none;
+          background-color: #000;
+          border: 1px solid #7b7b7b7b;
+          color: #fff;
+        }
       }
 
-      &::-webkit-scrollbar-track {
-        border-radius: 10px;
+      .list-group {
+        flex: 2;
+        overflow-y: scroll;
+        padding-bottom: 50px;
+        height: 300px;
+        &::-webkit-scrollbar {
+          -webkit-appearance: none;
+        }
+        &::-webkit-scrollbar {
+          background-color: transparent;
+        }
+        &::-webkit-scrollbar:vertical {
+          width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #828282;
+          border-radius: 20px;
+          border: 0;
+        }
+
+        &::-webkit-scrollbar-track {
+          border-radius: 10px;
+        }
       }
     }
+
     .folderLocal {
       flex: 1;
       margin: 0px 10px;

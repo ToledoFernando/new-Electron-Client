@@ -18,6 +18,7 @@ export interface IMusicaActual {
   sig: Nodo | null;
   musica: IMusica | null;
   setMusica: (nodo: Nodo) => void;
+  resetMusic: () => void;
 }
 
 export interface IPlayer {
