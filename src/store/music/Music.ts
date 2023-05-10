@@ -1,12 +1,22 @@
 import { create } from "zustand";
-import { IGetMusica, IMusicaActual, IMusica } from "./Musictype";
+import { IMusicaActual, IMusica } from "./Musictype";
+import { Nodo } from "../user/ListClass";
 
 export const musicaActual = create<IMusicaActual>((set) => ({
+  ant: null,
+  act: null,
+  sig: null,
   musica: null,
-  setMusica: async (musica: IGetMusica) => {
+  setMusica: async (nodo: Nodo | null) => {
+    if (nodo === null) return;
     let newMusic: IMusica;
-    newMusic = await getMusic(musica);
+    newMusic = await getMusic(nodo.value);
 
-    set(() => ({ musica: newMusic }));
+    set(() => ({
+      ant: nodo.prevoius,
+      act: nodo,
+      sig: nodo.next,
+      musica: newMusic,
+    }));
   },
 }));

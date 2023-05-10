@@ -9,6 +9,7 @@ interface IMusicaResult {
   name: string;
   duracion: string;
   buffer: BufferSource | ArrayBuffer;
+  img: null | string;
 }
 
 declare function getMusicFolder(): Promise<IMusic[]>;
