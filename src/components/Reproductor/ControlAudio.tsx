@@ -19,7 +19,6 @@ function ControlAudio({
   const audioTag = useRef<HTMLInputElement>(null);
   const [isPlay, setIsPlay] = useState<boolean>(true);
   const musica = musicaActual((state) => state);
-  const [timeActual, setTimeActual] = useState<string>("00:00");
 
   const play = () => {
     if (audio === null) return;
@@ -44,9 +43,6 @@ function ControlAudio({
         (audio.currentTime / audio.duration) * 100
       );
       audioTag.current.style.backgroundSize = `${audioTag.current.value}% 100%`;
-      setTimeActual(
-        new Date(audio.currentTime * 1000).toISOString().substr(14, 5)
-      );
     });
   }, [audio]);
 

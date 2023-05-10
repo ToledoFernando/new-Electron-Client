@@ -2,17 +2,35 @@
   width: 100%;
   display: flex;
   align-items: center;
+  // background-color: red;
+  height: 180px;
+  padding: 10px 0px 20px;
   img {
-    background-color: #dbd8d8;
-    padding: 30px;
+    background-color: #fff;
+    // background-color: #dbd8d8;
+    padding: 20px;
     border-radius: 20px;
-    margin: 40px 20px 30px 40px;
+    margin: 40px 20px 30px 60px;
+  }
+
+  .sinMusica {
+    height: 70%;
+    h1 {
+      text-align: center;
+    }
+    p {
+      width: 90%;
+      margin: auto;
+      color: #959393;
+      font-weight: 500;
+    }
   }
 }
 
 .info_music {
   position: relative;
   height: 180px;
+  padding-top: 20px;
 
   h1 {
     padding: 15px;

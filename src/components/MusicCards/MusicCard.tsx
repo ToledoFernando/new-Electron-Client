@@ -1,6 +1,5 @@
 import "./MusicCard.scss";
 import { Nodo } from "../../store/user/ListClass";
-import { IGetMusica } from "../../store/music/Musictype";
 
 type setFuntion = (nodo: Nodo) => void;
 

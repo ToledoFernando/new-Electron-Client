@@ -19,4 +19,7 @@ export const musicaActual = create<IMusicaActual>((set) => ({
       musica: newMusic,
     }));
   },
+  resetMusic: () => {
+    set(() => ({ musica: null }));
+  },
 }));

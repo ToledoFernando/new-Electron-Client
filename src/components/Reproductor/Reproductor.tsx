@@ -71,6 +71,7 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
   const [audio, setAudio] = useState<string>("");
   const [duration, setDuration] = useState<string>("00:00");
   const [timeAudio, setTimeAudio] = useState<number>(0);
+  const state = musicaActual((state) => state);
 
   const time = (num: number) => {
     const minutos = Math.floor(num / 60);
@@ -83,6 +84,11 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
     if (audioElement.current === null) return;
     const num = Math.floor(e.currentTarget.currentTime);
     setTimeAudio(num);
+  };
+
+  const finishAudio = () => {
+    if (state.sig === null) return;
+    state.setMusica(state.sig);
   };
 
   useEffect(() => {
@@ -105,6 +111,7 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
         ref={audioElement}
         onTimeUpdate={handleChangeTime}
         autoPlay
+        onEnded={finishAudio}
         src={audio}
       ></audio>
       <div className="reproductor">
@@ -116,6 +123,7 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
           timeAct={time(timeAudio)}
         />
         <VolumenControl audio={audioElement.current} />
+        <button onClick={state.resetMusic}>X</button>
       </div>
     </>
   );
