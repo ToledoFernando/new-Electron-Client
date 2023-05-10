@@ -1,7 +1,10 @@
+import { Nodo } from "../user/ListClass";
+
 export interface IMusica {
   name: string;
   duracion: string;
   buffer: BufferSource | ArrayBuffer;
+  img: string | null;
 }
 
 export interface IGetMusica {
@@ -10,8 +13,11 @@ export interface IGetMusica {
 }
 
 export interface IMusicaActual {
+  ant: Nodo | null;
+  act: Nodo | null;
+  sig: Nodo | null;
   musica: IMusica | null;
-  setMusica: (musica: IGetMusica) => void;
+  setMusica: (nodo: Nodo) => void;
 }
 
 export interface IPlayer {

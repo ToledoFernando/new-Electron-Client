@@ -1,18 +1,88 @@
-import { useEffect, useState, useRef } from "react";
+import { useRef, useEffect, useState, ChangeEvent } from "react";
 import { IMusicProps } from "./types";
-import "./Reproductor.scss";
 import ControlAudio from "./ControlAudio";
+import { musicaActual } from "../../store/music/Music";
+import audioLogo from "../../../public/musicaLogo.png";
+import volumenIcon from "../../../public/volumenIcon.png";
+import "./Reproductor.scss";
+
+function ViewImgAudio() {
+  const audioIMG = musicaActual((state) => state.musica);
+  return (
+    <>
+      {audioIMG?.img ? (
+        <img className="imgMusic" src={audioIMG.img} alt="" />
+      ) : (
+        <img
+          className="imgMusic"
+          src={audioLogo}
+          alt=""
+          width={40}
+          height={40}
+        />
+      )}
+    </>
+  );
+}
+
+function VolumenControl({ audio }: { audio: HTMLAudioElement | null }) {
+  if (!audio) return null;
+  const audioTag = useRef<HTMLInputElement>(null);
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    audio.volume = Number(event.target.value) * 0.01;
+    if (audioTag.current === null) return;
+    audioTag.current.style.backgroundSize = `${Number(
+      event.target.value
+    )}% 100%`;
+  };
+
+  useEffect(() => {
+    if (audioTag.current !== null) {
+      const audioVolumen = Number(audioTag.current?.value);
+      audioTag.current.value = audioVolumen.toString();
+      audioTag.current.style.backgroundSize = `${audioTag.current.value}% 100%`;
+    }
+  }, []);
+
+  return (
+    <div className="volumentControl">
+      <img
+        className="volumenIcon"
+        src={volumenIcon}
+        alt=""
+        width={15}
+        height={15}
+      />
+      <input
+        ref={audioTag}
+        type="range"
+        onChange={onChange}
+        className="volumen"
+        min={0}
+        max={100}
+      />
+    </div>
+  );
+}
 
 function Reproductor({ musica }: { musica: IMusicProps }) {
   const audioElement = useRef<HTMLAudioElement>(null);
   const [audio, setAudio] = useState<string>("");
   const [duration, setDuration] = useState<string>("00:00");
+  const [timeAudio, setTimeAudio] = useState<number>(0);
 
   const time = (num: number) => {
     const minutos = Math.floor(num / 60);
     const segundos = Math.floor(num % 60);
     if (segundos > 9) return `${minutos}:${segundos}` || "00:00";
     return `${minutos}:0${segundos}` || "00:00";
+  };
+
+  const handleChangeTime = (e: ChangeEvent<HTMLAudioElement>) => {
+    if (audioElement.current === null) return;
+    const num = Math.floor(e.currentTarget.currentTime);
+    setTimeAudio(num);
   };
 
   useEffect(() => {
@@ -29,14 +99,25 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
   }, [musica]);
 
   return (
-    <div className="reproductor">
-      <audio className="musica" ref={audioElement} autoPlay src={audio}></audio>
-      <div className="audio">
-        <ControlAudio audio={audioElement.current} />
+    <>
+      <audio
+        className="musica"
+        ref={audioElement}
+        onTimeUpdate={handleChangeTime}
+        autoPlay
+        src={audio}
+      ></audio>
+      <div className="reproductor">
+        <ViewImgAudio />
+        <ControlAudio
+          audio={audioElement.current}
+          duration={duration}
+          time={timeAudio}
+          timeAct={time(timeAudio)}
+        />
+        <VolumenControl audio={audioElement.current} />
       </div>
-      <input type="range" className="timeMusic" min="0" max="100" />
-      <label>{duration}</label>
-    </div>
+    </>
   );
 }
 

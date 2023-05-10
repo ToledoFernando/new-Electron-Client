@@ -15,7 +15,12 @@ function Local() {
   return (
     <div className="local">
       <MusicaActual />
-      <MusicList musicas={musicas} />
+      <div className="fileLocal">
+        <MusicList musicas={musicas} />
+        <div className="folderLocal">
+          <h1>Sin Carpetas</h1>
+        </div>
+      </div>
     </div>
   );
 }

@@ -7,26 +7,43 @@
   // background-color: #000000ba;
   backdrop-filter: blur(2px);
   display: flex;
-  gap: 10px;
-  justify-content: center;
+  // gap: 10px;
+  justify-content: space-around;
   align-items: center;
+  animation: aparecer 1s forwards;
+
+  @keyframes aparecer {
+    to {
+      bottom: 0;
+    }
+  }
+
+  .imgMusic {
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    position: relative;
+    top: -20px;
+    // left: -40px;
+  }
 }
 
 .timeMusic {
   -webkit-appearance: none;
   margin-right: 15px;
-  width: 400px;
+  width: 300px;
   height: 3px;
   background: #48484899;
   border-radius: 20px;
   background-image: linear-gradient(#fff, #fefefe);
-  background-size: 70% 100%;
+  background-size: 0% 100%;
   background-repeat: no-repeat;
 
   &:hover {
+    cursor: pointer;
     &::-webkit-slider-thumb {
-      width: 7px;
-      height: 7px;
+      width: 0px;
+      height: 0px;
       background-color: #fff;
     }
   }
@@ -34,8 +51,8 @@
   &::-webkit-slider-thumb {
     border-radius: 20px;
     -webkit-appearance: none;
-    height: 4px;
-    width: 4px;
+    height: 0px;
+    width: 0px;
     border-radius: 50%;
     // background: #fff;
     background-color: transparent;
@@ -45,9 +62,68 @@
     transition: all 0.2s;
   }
 
-  &::-webkit-slider-thumb:hover {
-    background: #e3e3e3;
-    width: 10px;
-    height: 10px;
+  // &::-webkit-slider-thumb:hover {
+  //   background: #e3e3e3;
+  //   width: 10px;
+  //   height: 10px;
+  // }
+}
+
+.volumentControl {
+  display: flex;
+  // flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  gap: 10px;
+
+  .volumenIcon {
+    filter: invert(100%);
+
+    &:hover {
+      ~ .volumenControl {
+        width: 80px;
+      }
+    }
+  }
+
+  .volumen {
+    -webkit-appearance: none;
+    width: 80px;
+    height: 3px;
+    background: #48484899;
+    border-radius: 20px;
+    background-image: linear-gradient(#fff, #fefefe);
+    background-size: 30% 100%;
+    background-repeat: no-repeat;
+
+    &:hover {
+      width: 80px;
+      &::-webkit-slider-thumb {
+        width: 7px;
+        height: 7px;
+        background-color: #fff;
+      }
+    }
+
+    &::-webkit-slider-thumb {
+      border-radius: 20px;
+      -webkit-appearance: none;
+      height: 4px;
+      width: 4px;
+      border-radius: 50%;
+      // background: #fff;
+      background-color: transparent;
+      cursor: pointer;
+      box-shadow: 0 0 2px 0 #555;
+      transition: background 0.3s ease-in-out;
+      transition: all 0.2s;
+    }
+
+    &::-webkit-slider-thumb:hover {
+      background: #e3e3e3;
+      width: 10px;
+      height: 10px;
+    }
   }
 }
