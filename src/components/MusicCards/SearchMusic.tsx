@@ -18,15 +18,18 @@ function SearchMusic({
 
   return (
     <div className="inputSearch">
-      <input
-        type="text"
-        onChange={handleChange}
-        value={search}
-        placeholder="Nombre de la musica"
-        id="searchInput"
-      />
-      <input type="submit" value="Buscar" onClick={() => searchName(search)} />
-      <input type="submit" value="Reset" onClick={reset} />
+      <div className="divSearch">
+        <input
+          type="text"
+          onChange={handleChange}
+          value={search}
+          placeholder="Nombre de la musica"
+          id="searchInput"
+        />
+        <button id="searchButton" onClick={() => searchName(search)}>
+          Buscar
+        </button>
+      </div>
     </div>
   );
 }

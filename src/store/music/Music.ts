@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+import MusicCard from "../../components/MusicCards/MusicCard";
 import { create } from "zustand";
-import { IMusicaActual, IMusica } from "./Musictype";
+import { IMusicaActual, IMusica, IMusicList } from "./Musictype";
 import { Nodo } from "../user/ListClass";
 
 export const musicaActual = create<IMusicaActual>((set) => ({
@@ -22,4 +24,9 @@ export const musicaActual = create<IMusicaActual>((set) => ({
   resetMusic: () => {
     set(() => ({ musica: null }));
   },
+}));
+
+export const musicList = create<IMusicList>((set) => ({
+  list: [],
+  setList: (list) => set({ list }),
 }));
