@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Nodo } from "../user/ListClass";
 
 export interface IMusica {
@@ -24,4 +25,9 @@ export interface IMusicaActual {
 export interface IPlayer {
   audio: HTMLAudioElement | null;
   setAudio: (audio: ArrayBuffer | BufferSource) => void;
+}
+
+export interface IMusicList {
+  list: ReactNode[];
+  setList: (lista: ReactNode[]) => void;
 }

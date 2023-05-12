@@ -7,9 +7,7 @@ import "./global.css";
 const currentPath = location.pathname;
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <BrowserRouter basename={currentPath}>
-      <Root />
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter basename={currentPath}>
+    <Root />
+  </BrowserRouter>
 );

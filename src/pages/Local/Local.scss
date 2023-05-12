@@ -1,36 +1,66 @@
+$border: #0e0e0e;
+
 .local {
   width: 98%;
   padding: 1%;
   display: flex;
   flex-direction: column;
-  flex: (3fr, 1);
+  // flex: (3fr, 1);
 
   .fileLocal {
     display: flex;
-    flex: (3fr, 2);
+    // flex: (3fr, 2);
 
     .searchMusic {
+      flex: 2;
+
       .inputSearch {
         width: 100%;
         text-align: center;
         padding: 0px 0px 10px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        height: 50px;
+        // background-color: red;
 
-        input {
-          width: 70%;
-          padding: 10px 20px;
-          border-radius: 7px;
-          outline: none;
-          background-color: #000;
-          border: 1px solid #7b7b7b7b;
-          color: #fff;
+        .divSearch {
+          // background-color: green;
+          position: absolute;
+          width: 100%;
+          input {
+            width: 60%;
+            padding: 10px 20px;
+            border-radius: 7px 0px 0px 7px;
+            outline: none;
+            background-color: #000;
+            border: 0;
+            border-top: 1px solid $border;
+            border-left: 1px solid $border;
+            border-bottom: 1px solid $border;
+            color: #fff;
+          }
+          #searchButton {
+            background-color: #0e0e0e;
+            color: #fff;
+            padding: 0px 5px;
+            width: 50px;
+            height: 38px;
+            border: 0;
+            border-radius: 0px 7px 7px 0px;
+            border-top: 1px solid $border;
+            border-right: 1px solid $border;
+            border-bottom: 1px solid $border;
+            cursor: pointer;
+          }
         }
       }
 
       .list-group {
-        flex: 2;
         overflow-y: scroll;
         padding-bottom: 50px;
-        height: 300px;
+        height: 250px;
+        // height: 300px;
         &::-webkit-scrollbar {
           -webkit-appearance: none;
         }
