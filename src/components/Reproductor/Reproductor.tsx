@@ -1,4 +1,10 @@
-import { useRef, useEffect, useState, ChangeEvent } from "react";
+import {
+  useRef,
+  useEffect,
+  useState,
+  ChangeEvent,
+  ReactEventHandler,
+} from "react";
 import { IMusicProps } from "./types";
 import ControlAudio from "./ControlAudio";
 import { musicaActual } from "../../store/music/Music";
@@ -71,6 +77,7 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
   const [audio, setAudio] = useState<string>("");
   const [duration, setDuration] = useState<string>("00:00");
   const [timeAudio, setTimeAudio] = useState<number>(0);
+  const [isPlay, setIsPlay] = useState<boolean>(true);
   const state = musicaActual((state) => state);
 
   const time = (num: number) => {
@@ -86,6 +93,17 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
     setTimeAudio(num);
   };
 
+  const play = () => {
+    if (audioElement.current === null) return;
+    if (isPlay) {
+      audioElement.current.pause();
+      setIsPlay(false);
+    } else {
+      audioElement.current.play();
+      setIsPlay(true);
+    }
+  };
+
   const finishAudio = () => {
     if (state.sig === null) return;
     state.setMusica(state.sig);
@@ -99,6 +117,7 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
       const result = time(audio.duration);
       setDuration(result);
     };
+    setIsPlay(true);
     let url = URL.createObjectURL(music);
     audio.src = url;
     setAudio(url);
@@ -117,6 +136,8 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
       <div className="reproductor">
         <ViewImgAudio />
         <ControlAudio
+          play={play}
+          isPlay={isPlay}
           audio={audioElement.current}
           duration={duration}
           time={timeAudio}
