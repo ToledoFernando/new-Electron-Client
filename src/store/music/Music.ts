@@ -9,7 +9,7 @@ export const musicaActual = create<IMusicaActual>((set) => ({
   act: null,
   sig: null,
   musica: null,
-  setMusica: async (nodo: Nodo | null) => {
+  setMusica: async (nodo: Nodo) => {
     if (nodo === null) return;
     let newMusic: IMusica;
     newMusic = await getMusic(nodo.value);
@@ -28,5 +28,10 @@ export const musicaActual = create<IMusicaActual>((set) => ({
 
 export const musicList = create<IMusicList>((set) => ({
   list: [],
-  setList: (list) => set({ list }),
+  setList: (list) => {
+    console.log("##################");
+    console.log(list);
+    console.log("##################");
+    set({ list });
+  },
 }));

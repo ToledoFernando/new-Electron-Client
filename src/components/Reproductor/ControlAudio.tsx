@@ -1,4 +1,10 @@
-import { useState, useEffect, useRef, ChangeEvent } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  ChangeEvent,
+  ReactEventHandler,
+} from "react";
 import { musicaActual } from "../../store/music/Music";
 import playIcon from "../../../public/play.png";
 import pausa from "../../../public/pausa.png";
@@ -10,21 +16,26 @@ function ControlAudio({
   duration,
   time,
   timeAct,
+  play,
+  isPlay,
 }: {
+  play: () => void;
+  isPlay: boolean;
   audio: HTMLAudioElement | null;
   duration: string;
   time: number;
   timeAct: string;
 }) {
   const audioTag = useRef<HTMLInputElement>(null);
-  const [isPlay, setIsPlay] = useState<boolean>(true);
+  // const xd = play()
+  // const [isPlay, setIsPlay] = useState<boolean>(true);
   const musica = musicaActual((state) => state);
 
-  const play = () => {
-    if (audio === null) return;
-    isPlay ? audio.pause() : audio.play();
-    setIsPlay(!isPlay);
-  };
+  // const play = () => {
+  //   if (audio === null) return;
+  //   isPlay ? audio.pause() : audio.play();
+  //   setIsPlay(!isPlay);
+  // };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (audioTag.current === null) return;
@@ -34,6 +45,8 @@ function ControlAudio({
     const porcentaje = (Number(event.target.value) / audio.duration) * 100;
     audioTag.current.style.backgroundSize = `${porcentaje.toFixed(2)}% 100%`;
   };
+
+  // setIsPlay(setPlay);
 
   useEffect(() => {
     if (audio === null) return;
@@ -50,6 +63,7 @@ function ControlAudio({
     <div className="controlAudio">
       <button
         id="ant"
+        className={musica.ant ? "ant" : "null"}
         onClick={() => musica.ant && musica.setMusica(musica.ant)}
         disabled={!musica.ant}
       >
@@ -64,6 +78,7 @@ function ControlAudio({
       </button>
 
       <button
+        className={musica.sig ? "sig" : "null"}
         onClick={() => musica.sig && musica.setMusica(musica.sig)}
         disabled={!musica.sig}
       >

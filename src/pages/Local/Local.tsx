@@ -6,7 +6,7 @@ import "./Local.scss";
 
 function Local() {
   const setMusicas = getMusic((state) => state.getMusic);
-  const musicas = getMusic((state) => state.musics);
+  const lista = getMusic((state) => state.list);
 
   useEffect(() => {
     setMusicas();
@@ -14,9 +14,10 @@ function Local() {
 
   return (
     <div className="local">
+      <h1>{lista.length}</h1>
       <MusicaActual />
       <div className="fileLocal">
-        <MusicList musicas={musicas} />
+        <MusicList musicas={lista} />
         <div className="folderLocal">
           <h1>Sin Carpetas</h1>
         </div>
