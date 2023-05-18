@@ -4,14 +4,20 @@ import { List } from "./ListClass";
 
 export const getMusic = create<MusicStoreState>((set) => ({
   musics: new List(),
+  folders: [] as IMusic[],
+  folderActual: [],
   list: [] as IMusicListLocal[],
   listAux: [] as IMusicListLocal[],
   getMusic: async () => {
-    let musicas: IMusic[];
+    let musicas: IResult;
 
     musicas = await getMusicFolder();
+
     const NodeListMusic = new List();
-    musicas.forEach((music: IMusic) => NodeListMusic.push(music));
+    let folders: IMusic[] = [];
+
+    musicas.files.forEach((music: IMusic) => NodeListMusic.push(music));
+    musicas.folders.forEach((carpeta: IMusic) => folders.push(carpeta));
 
     let current = NodeListMusic.head;
     let lista1: IMusicListLocal[] = [];
@@ -23,7 +29,12 @@ export const getMusic = create<MusicStoreState>((set) => ({
       });
       current = current.next;
     }
-    set({ musics: NodeListMusic, list: lista1, listAux: lista1 });
+    set({
+      musics: NodeListMusic,
+      list: lista1,
+      listAux: lista1,
+      folders: folders,
+    });
   },
 
   setSearch: (name: string) => {
@@ -50,5 +61,63 @@ export const getMusic = create<MusicStoreState>((set) => ({
         return { list: lista1 };
       });
     }
+  },
+  getMusicFolder: async (folder: IMusic) => {
+    let musicas: IResult;
+    musicas = await getMusicFolderName(folder);
+
+    const NodeListMusic = new List();
+    let folders: IMusic[] = [];
+
+    musicas.files.forEach((music: IMusic) => NodeListMusic.push(music));
+    musicas.folders.forEach((carpeta: IMusic) => folders.push(carpeta));
+
+    let current = NodeListMusic.head;
+    let lista1: IMusicListLocal[] = [];
+    while (current !== null) {
+      lista1.push({
+        musica: current,
+        sig: current.next,
+        ant: current.prevoius,
+      });
+      current = current.next;
+    }
+    set((state) => ({
+      musics: NodeListMusic,
+      list: lista1,
+      listAux: lista1,
+      folders: folders,
+      folderActual: [...state.folderActual, folder.name],
+    }));
+  },
+  backToFolder: async (path: string[]) => {
+    let musicas: IResult;
+
+    musicas = await getBackToFolder(path);
+
+    const NodeListMusic = new List();
+    let folders: IMusic[] = [];
+
+    musicas.files.forEach((music: IMusic) => NodeListMusic.push(music));
+    musicas.folders.forEach((carpeta: IMusic) => folders.push(carpeta));
+
+    let current = NodeListMusic.head;
+    let lista1: IMusicListLocal[] = [];
+    while (current !== null) {
+      lista1.push({
+        musica: current,
+        sig: current.next,
+        ant: current.prevoius,
+      });
+      current = current.next;
+    }
+    let newPath = path.slice(0, -1);
+    set((state) => ({
+      musics: NodeListMusic,
+      list: lista1,
+      listAux: lista1,
+      folders: folders,
+      folderActual: newPath,
+    }));
   },
 }));

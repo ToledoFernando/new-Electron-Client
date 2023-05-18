@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home.tsx";
 import Local from "./pages/Local/Local.tsx";
 import Reproductor from "./components/Reproductor/Reproductor.tsx";
 import { musicaActual } from "./store/music/Music.ts";
+import DownloadPage from "./pages/downloads/DownloadPage.tsx";
 import "./Root.css";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/downloads" element={<h1>Downloads </h1>} />
+        <Route path="/downloads" element={<DownloadPage />} />
         <Route path="/local" element={<Local />} />
         <Route path="/music" element={<h1>Musicas </h1>} />
       </Routes>

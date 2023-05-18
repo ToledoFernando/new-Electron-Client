@@ -5,6 +5,11 @@ interface IMusic {
   path: string;
 }
 
+interface IResult {
+  files: IMusic[];
+  folders: IMusic[];
+}
+
 interface IMusicaResult {
   name: string;
   duracion: string;
@@ -12,6 +17,10 @@ interface IMusicaResult {
   img: null | string;
 }
 
-declare function getMusicFolder(): Promise<IMusic[]>;
+declare function getMusicFolder(): Promise<IResult>;
 
 declare function getMusic(file: IMusic): Promise<IMusicaResult>;
+
+declare function getMusicFolderName(folder: IMusic): Promise<IResult>;
+
+declare function getBackToFolder(path: string[]): Promise<IResult>;
