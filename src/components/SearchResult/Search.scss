@@ -1,0 +1,108 @@
+.div-result {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  overflow: hidden;
+  overflow-y: auto;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  justify-items: center;
+  grid-gap: 30px 0px;
+  width: 100%;
+  min-height: 70%;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+  &::-webkit-scrollbar {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar:vertical {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #828282;
+    border-radius: 20px;
+    border: 0;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  .sin_musica {
+    width: 800px;
+    padding-top: 90px;
+    text-align: center;
+
+    h1 {
+      width: 300px;
+      margin: auto;
+      font-size: 25px;
+    }
+  }
+}
+
+.search-card {
+  background-color: #0e0e0e7c;
+  grid-area: 1fr;
+  width: 180px;
+  height: 150px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+
+  .degradado {
+    background: linear-gradient(to top, #000, #00000000);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s;
+    transform: translateY(100%);
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 10px;
+
+    button {
+      background-color: transparent;
+      border-radius: 4px;
+      border: 0;
+      cursor: pointer;
+
+      &[class="playButton"] {
+        padding: 5px;
+      }
+
+      img {
+        filter: invert(100%);
+      }
+    }
+  }
+
+  &:hover {
+    background-color: #0a0a0a7a;
+    transform: scale(1.05);
+
+    .degradado {
+      transform: translateY(0%);
+    }
+  }
+
+  p {
+    text-align: center;
+    font-size: 13px;
+  }
+  .author {
+    font-size: 11px;
+  }
+}

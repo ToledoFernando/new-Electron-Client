@@ -1,12 +1,13 @@
-import React from "react";
 import "./DownloadPage.scss";
 import SearchForm from "../../components/SearchDownloads/SearchForm";
+import SearchResult from "../../components/SearchResult/SearchResult";
 
 function DownloadPage() {
   return (
-    <div>
-      <h1>Download Page</h1>
+    <div className="download-page">
+      <br />
       <SearchForm />
+      <SearchResult />
     </div>
   );
 }

@@ -1,34 +1,54 @@
-import {
-  useRef,
-  useEffect,
-  useState,
-  ChangeEvent,
-  ReactEventHandler,
-} from "react";
+import { useRef, useEffect, useState, ChangeEvent } from "react";
 import { IMusicProps } from "./types";
 import ControlAudio from "./ControlAudio";
-import { musicaActual } from "../../store/music/Music";
+import { loading, musicaActual } from "../../store/music/Music";
 import audioLogo from "../../../public/musicaLogo.png";
 import volumenIcon from "../../../public/volumenIcon.png";
+import downloadIcon from "../../../public/iconDownload.svg";
+import { IMusicUrl } from "../../store/music/Musictype";
+import loadAnim from "../../../public/loadAnim.svg";
 import "./Reproductor.scss";
 
 function ViewImgAudio() {
   const audioIMG = musicaActual((state) => state.musica);
-  return (
-    <>
-      {audioIMG?.img ? (
-        <img className="imgMusic" src={audioIMG.img} alt="" />
-      ) : (
-        <img
-          className="imgMusic"
-          src={audioLogo}
-          alt=""
-          width={40}
-          height={40}
-        />
-      )}
-    </>
-  );
+  const downloadMusic = musicaActual((state) => state.downloadMusic);
+  const load = loading((state) => state.loadingMusic);
+
+  const getDownloadMusic = (musica: IMusicUrl) => {
+    downloadMusic(musica);
+  };
+
+  if (load) {
+    return <img className="loadIMG" src={loadAnim} width={30} height={30} />;
+  } else {
+    return (
+      <>
+        {audioIMG?.img ? (
+          <span
+            style={{ backgroundImage: `url(${audioIMG.img})` }}
+            className="imgMusic_online"
+          >
+            <div className="downloadMusic">
+              <img
+                src={downloadIcon}
+                onClick={() => getDownloadMusic(audioIMG)}
+                width={30}
+                height={30}
+              />
+            </div>
+          </span>
+        ) : (
+          <img
+            className="imgMusic"
+            src={audioLogo}
+            alt=""
+            width={40}
+            height={40}
+          />
+        )}
+      </>
+    );
+  }
 }
 
 function VolumenControl({ audio }: { audio: HTMLAudioElement | null }) {
@@ -110,17 +130,32 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
   };
 
   useEffect(() => {
-    const music = new Blob([musica.buffer], { type: "audio/mp3" });
-    const audio = document.createElement("audio");
-    audio.preload = "metadata";
-    audio.onloadedmetadata = () => {
-      const result = time(audio.duration);
-      setDuration(result);
-    };
-    setIsPlay(true);
-    let url = URL.createObjectURL(music);
-    audio.src = url;
-    setAudio(url);
+    if (state.musica) {
+      if (!state.musica?.online) {
+        const music = new Blob([musica.buffer], { type: "audio/mp3" });
+        const audio = document.createElement("audio");
+        audio.preload = "metadata";
+        audio.onloadedmetadata = () => {
+          const result = time(audio.duration);
+          setDuration(result);
+        };
+        setIsPlay(true);
+        let url = URL.createObjectURL(music);
+        audio.src = url;
+        setAudio(url);
+      } else {
+        console.log("ES ONLINE");
+        const audio = document.createElement("audio");
+        audio.preload = "metadata";
+        audio.onloadedmetadata = () => {
+          const result = time(audio.duration);
+          setDuration(result);
+        };
+        setIsPlay(true);
+        audio.src = state.musica.url;
+        setAudio(state.musica.url);
+      }
+    }
   }, [musica]);
 
   return (
@@ -144,7 +179,9 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
           timeAct={time(timeAudio)}
         />
         <VolumenControl audio={audioElement.current} />
-        <button onClick={state.resetMusic}>X</button>
+        <button className="quitMusic" onClick={state.resetMusic}>
+          X
+        </button>
       </div>
     </>
   );

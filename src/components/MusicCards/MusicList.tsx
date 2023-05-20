@@ -12,7 +12,6 @@ function MusicList({ musicas }: { musicas: IMusicListLocal[] }) {
 
   const search = (name: string) => {
     searchMusic(name);
-    console.log();
   };
 
   const resetSearch = () => {
