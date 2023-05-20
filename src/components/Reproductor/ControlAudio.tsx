@@ -27,15 +27,7 @@ function ControlAudio({
   timeAct: string;
 }) {
   const audioTag = useRef<HTMLInputElement>(null);
-  // const xd = play()
-  // const [isPlay, setIsPlay] = useState<boolean>(true);
   const musica = musicaActual((state) => state);
-
-  // const play = () => {
-  //   if (audio === null) return;
-  //   isPlay ? audio.pause() : audio.play();
-  //   setIsPlay(!isPlay);
-  // };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (audioTag.current === null) return;
@@ -45,8 +37,6 @@ function ControlAudio({
     const porcentaje = (Number(event.target.value) / audio.duration) * 100;
     audioTag.current.style.backgroundSize = `${porcentaje.toFixed(2)}% 100%`;
   };
-
-  // setIsPlay(setPlay);
 
   useEffect(() => {
     if (audio === null) return;

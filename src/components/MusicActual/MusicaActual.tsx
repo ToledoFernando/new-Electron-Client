@@ -17,6 +17,7 @@ function MusicaActual() {
 
   useEffect(() => {
     if (musica === null) return;
+    if (musica.online) return;
     const audio = document.createElement("audio");
     audio.preload = "metadata";
     const blob = new Blob([musica.buffer], { type: "type/mp3" });
@@ -29,7 +30,14 @@ function MusicaActual() {
 
   return (
     <div className="musicaActual">
-      <img src={logoMusica} alt="musicaLogo" width={100} height={100} />
+      {musica?.img ? (
+        <span
+          className="musicaLogo"
+          style={{ backgroundImage: `url(${musica.img})` }}
+        ></span>
+      ) : (
+        <img src={logoMusica} alt="musicaLogo" width={100} height={100} />
+      )}
       {!musica ? (
         <div className="sinMusica">
           <h1>Lista de musica local</h1>
@@ -43,7 +51,15 @@ function MusicaActual() {
           <h1 className={musica.name.length <= 40 ? "name" : "nameLong"}>
             {musica.name.slice(0, -4)}
           </h1>
-          <p className="duration">- Duracion: {duration}</p>
+          <p className="duration">
+            - Duracion: {musica.online ? time(musica.time - 1) : duration}
+          </p>
+          {musica.online && (
+            <>
+              <br />
+              <p className="duration"> - {musica.author}</p>
+            </>
+          )}
         </div>
       )}
     </div>
