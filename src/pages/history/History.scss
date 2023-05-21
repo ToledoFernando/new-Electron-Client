@@ -1,0 +1,54 @@
+.history {
+  width: 100%;
+
+  .history-card {
+    width: 90%;
+    margin: 1% auto;
+    padding: 2% 3%;
+    border-bottom: 1px solid #0e0e0e;
+    display: grid;
+    grid-template-columns: 6fr 1fr 1fr;
+    gap: 10px;
+
+    label {
+      text-align: center;
+    }
+    .name-download {
+      font-size: 13px;
+    }
+
+    .success {
+      background-color: transparent;
+      border: 0;
+      color: #fefefe;
+      width: 30px;
+      height: 30px;
+      margin: auto;
+
+      .delete_music {
+        background-color: transparent;
+        width: 15px;
+        height: 15px;
+        filter: invert(100%);
+      }
+    }
+
+    .downloading {
+      background: url("../../../public/loadAnim.svg");
+      width: 30px;
+      height: 30px;
+      border: 0;
+      color: #fefefe;
+      background-position: center;
+      background-size: cover;
+      margin: auto;
+
+      .download {
+        background-color: transparent;
+        width: 15px;
+        height: 15px;
+        filter: invert(100%);
+      }
+    }
+  }
+}

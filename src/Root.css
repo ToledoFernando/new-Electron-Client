@@ -3,7 +3,7 @@
   height: 100vh;
   background-color: var(--bg-c1);
   width: 100%;
-  border-radius: 30px;
+  border-radius: 40px;
   overflow: hidden;
   position: absolute;
 }

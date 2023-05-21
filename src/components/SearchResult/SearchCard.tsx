@@ -4,11 +4,14 @@ import iconDowload from "../../../public/iconDownload.svg";
 import play from "../../../public/play.png";
 import { loading, musicaActual } from "../../store/music/Music";
 import { IMusicOnline } from "../../store/music/Musictype";
+import { download as DownloadMusic } from "../../store/download/download";
 import "./Search.scss";
 
 function SearchCard({ musica }: { musica: IMusicOnline }) {
   const musicaAct = musicaActual((state) => state.setMusicOnlyne);
-  const download = musicaActual((state) => state.downloadMusic);
+  const download = DownloadMusic((state) => state.downloadMusic);
+  const setName = DownloadMusic((state) => state.setName);
+  const setIsDownload = DownloadMusic((state) => state.setDownload);
   const setLoad = loading((state) => state.setLoad);
 
   const getPlayMusic = async (musica: IMusicOnline) => {
@@ -21,7 +24,9 @@ function SearchCard({ musica }: { musica: IMusicOnline }) {
     setLoad();
     const music = await musicaAct(musica);
     setLoad();
+    setIsDownload();
     download(music);
+    setName(musica.title);
   };
 
   return (
