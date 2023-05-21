@@ -5,7 +5,7 @@ import { loading, musicaActual } from "../../store/music/Music";
 import audioLogo from "../../../public/musicaLogo.png";
 import volumenIcon from "../../../public/volumenIcon.png";
 import downloadIcon from "../../../public/iconDownload.svg";
-import { IMusicUrl } from "../../store/music/Musictype";
+import { IMusicUrl, IMusica } from "../../store/music/Musictype";
 import loadAnim from "../../../public/loadAnim.svg";
 import "./Reproductor.scss";
 
@@ -92,7 +92,11 @@ function VolumenControl({ audio }: { audio: HTMLAudioElement | null }) {
   );
 }
 
-function Reproductor({ musica }: { musica: IMusicProps }) {
+function Reproductor({
+  musica,
+}: {
+  musica: IMusicProps | IMusicUrl | IMusica;
+}) {
   const audioElement = useRef<HTMLAudioElement>(null);
   const [audio, setAudio] = useState<string>("");
   const [duration, setDuration] = useState<string>("00:00");
@@ -144,16 +148,20 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
         audio.src = url;
         setAudio(url);
       } else {
-        console.log("ES ONLINE");
-        const audio = document.createElement("audio");
-        audio.preload = "metadata";
-        audio.onloadedmetadata = () => {
-          const result = time(audio.duration);
-          setDuration(result);
-        };
-        setIsPlay(true);
-        audio.src = state.musica.url;
-        setAudio(state.musica.url);
+        try {
+          console.log("ES ONLINE");
+          const audio = document.createElement("audio");
+          audio.preload = "metadata";
+          audio.onloadedmetadata = () => {
+            const result = time(audio.duration);
+            setDuration(result);
+          };
+          setIsPlay(true);
+          audio.src = state.musica.url;
+          setAudio(state.musica.url);
+        } catch (error) {
+          console.log("IAWBDOIAWBDOIBAWOID xd");
+        }
       }
     }
   }, [musica]);
@@ -168,6 +176,7 @@ function Reproductor({ musica }: { musica: IMusicProps }) {
         onEnded={finishAudio}
         src={audio}
       ></audio>
+      {/* {loadMusic()} */}
       <div className="reproductor">
         <ViewImgAudio />
         <ControlAudio

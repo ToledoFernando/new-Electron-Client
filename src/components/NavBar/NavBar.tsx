@@ -3,6 +3,7 @@ import NavBarOption from "./NavBarOption.tsx";
 import music from "../../../public/music.svg";
 import download from "../../../public/download.svg";
 import folder from "../../../public/folder.svg";
+import history from "../../../public/history.svg";
 import icon from "../../../public/icon.png";
 import "./NavBar.scss";
 
@@ -17,6 +18,7 @@ function NavBar() {
           <NavBarOption path="/music" img={music} />
           <NavBarOption path="/downloads" img={download} />
           <NavBarOption path="/local" img={folder} />
+          <NavBarOption path="/history" img={history} />
         </ul>
       </div>
       <label>v2.0</label>

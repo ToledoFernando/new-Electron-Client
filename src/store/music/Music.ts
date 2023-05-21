@@ -6,6 +6,9 @@ import {
   IMusicOnline,
   IMusicUrl,
   ILoad,
+  IMusicApi,
+  IMusicAPIResult,
+  IMusicAPIResultMusic,
 } from "./Musictype";
 import { Nodo } from "../user/ListClass";
 
@@ -51,9 +54,24 @@ export const musicaActual = create<IMusicaActual>((set) => ({
     set({ musica: xd, ant: null, sig: null });
     return xd;
   },
-  downloadMusic: async (musica: IMusicUrl) => {
-    // console.log(musica);
-    send("downloadMusicURL", musica);
+
+  setMusicApi: (music: IMusicAPIResult | IMusicAPIResultMusic) => {
+    // console.log(music);
+    let xd: IMusicUrl = {} as IMusicUrl;
+    if (typeof music.name != "string") return;
+    if (typeof music.musicIMG != "string") return;
+    if (typeof music.duration != "number") return;
+    if (typeof music.artist != "string") return;
+    if (typeof music.musicURL != "string") return;
+
+    xd.online = true;
+    xd.img = music.musicIMG;
+    xd.name = music.name;
+    xd.time = music.duration;
+    xd.author = music.artist;
+    xd.url = music.musicURL;
+
+    set({ musica: xd });
   },
 }));
 
@@ -61,5 +79,16 @@ export const musicList = create<IMusicList>((set) => ({
   list: [],
   setList: (list) => {
     set({ list });
+  },
+}));
+
+export const musicApi = create<IMusicApi>((set) => ({
+  data: [],
+  setData: async () => {
+    let musica: IMusicAPIResult[];
+    musica = await getApiData();
+
+    set({ data: musica });
+    // console.log(musica);
   },
 }));

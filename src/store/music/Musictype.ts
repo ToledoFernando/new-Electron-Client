@@ -1,12 +1,43 @@
 import { ReactNode } from "react";
 import { Nodo } from "../user/ListClass";
 
+export interface IMusicAPIResult {
+  [key: string]: IMusicAPIResultMusic[];
+}
+
+export interface IMusicAPIResultMusic {
+  _id: string;
+  name: string;
+  artist: string;
+  musicURL: string;
+  musicIMG: string;
+  duration: number;
+  gener: string[];
+  __v: number;
+}
+
 export interface IMusica {
   name: string;
   duracion: string;
   buffer: BufferSource | ArrayBuffer;
   img: string | null;
   online: boolean;
+}
+
+export interface IMusicAPI {
+  _id: string;
+  name: string;
+  artist: string;
+  musicURL: string;
+  musicIMG: string;
+  duration: number;
+  gener: string[];
+  __v: number;
+}
+
+export interface IMusicApi {
+  data: IMusicAPIResult[];
+  setData: () => void;
 }
 
 export interface IMusicUrl {
@@ -78,8 +109,9 @@ export interface IMusicaActual {
   musica: IMusicUrl | IMusica | null;
   setMusica: (nodo: Nodo) => void;
   setMusicOnlyne: (music: IMusicOnline) => Promise<any>;
+  setMusicApi: (music: IMusicAPIResult | IMusicAPIResultMusic) => void;
   resetMusic: () => void;
-  downloadMusic: (musica: IMusicUrl) => Promise<any>;
+  // downloadMusic: (musica: IMusicUrl) => Promise<any>;
 }
 
 export interface IPlayer {
