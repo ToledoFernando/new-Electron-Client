@@ -31,7 +31,8 @@
   }
 
   .sin_musica {
-    width: 800px;
+    width: 900px;
+    // background-color: red;
     padding-top: 90px;
     text-align: center;
 
@@ -39,6 +40,14 @@
       width: 300px;
       margin: auto;
       font-size: 25px;
+    }
+
+    .load {
+      width: 100%;
+      img {
+        width: 100px;
+        position: relative;
+      }
     }
   }
 }
@@ -104,5 +113,32 @@
   }
   .author {
     font-size: 11px;
+  }
+}
+
+.toast {
+  background-color: #edecec;
+  color: #0e0e0e;
+  padding: 10px 20px;
+  border-radius: 4px;
+  display: grid;
+  width: 300px;
+  grid-template-columns: 9fr 1fr;
+  font-weight: 700;
+
+  p {
+    color: #3c3b3b;
+    font-size: 13px;
+  }
+
+  img {
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    cursor: pointer;
+    font-weight: 900;
+    border-radius: 50%;
+    font-size: 20px;
   }
 }

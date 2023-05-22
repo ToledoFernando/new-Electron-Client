@@ -5,7 +5,6 @@ export interface IDownload {
   Porcentaje: number;
   Name: string;
   downloadMusic(musica: IMusicUrl): Promise<void>;
-  setDownload: () => void;
+  setDownloadReset: () => void;
   setPorcentaje: (newPorcentaje: number) => void;
-  setName: (name: string) => void;
 }

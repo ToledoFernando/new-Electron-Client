@@ -1,11 +1,11 @@
 import iconDownload from "../../../public/iconDownload.svg";
 import iconBasura from "../../../public/basura.svg";
 
-function HistoryCard() {
+function HistoryCard({ position }: { position: number }) {
   const xd = Math.round(Math.random() * 2);
   return (
     <div className="history-card">
-      <p className="name-download">Musica de ejemplo</p>
+      <p className="name-download">{position + 1} - Musica de ejemplo</p>
       {xd % 2 === 0 ? (
         <label>{Math.round(Math.random() * 100)}%</label>
       ) : (

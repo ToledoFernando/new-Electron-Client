@@ -7,6 +7,8 @@ import volumenIcon from "../../../public/volumenIcon.png";
 import downloadIcon from "../../../public/iconDownload.svg";
 import { IMusicUrl, IMusica } from "../../store/music/Musictype";
 import loadAnim from "../../../public/loadAnim.svg";
+import iconClose from "../../../public/close.svg";
+import iconReplay from "../../../public/replay.svg";
 import "./Reproductor.scss";
 
 function ViewImgAudio() {
@@ -102,6 +104,7 @@ function Reproductor({
   const [duration, setDuration] = useState<string>("00:00");
   const [timeAudio, setTimeAudio] = useState<number>(0);
   const [isPlay, setIsPlay] = useState<boolean>(true);
+  const [replay, setReplay] = useState<boolean>(false);
   const state = musicaActual((state) => state);
 
   const time = (num: number) => {
@@ -129,12 +132,22 @@ function Reproductor({
   };
 
   const finishAudio = () => {
-    if (state.sig === null) return;
-    state.setMusica(state.sig);
+    if (replay) {
+      if (audioElement.current === null) return;
+      audioElement.current.pause();
+      audioElement.current.currentTime = 0;
+      audioElement.current.play();
+      // setIsPlay(true);
+      return;
+    } else {
+      if (state.sig === null) return setIsPlay(false);
+      state.setMusica(state.sig);
+    }
   };
 
   useEffect(() => {
     if (state.musica) {
+      // audioElement.current?.addEventListener("ended", finishAudio);
       if (!state.musica?.online) {
         const music = new Blob([musica.buffer], { type: "audio/mp3" });
         const audio = document.createElement("audio");
@@ -176,7 +189,6 @@ function Reproductor({
         onEnded={finishAudio}
         src={audio}
       ></audio>
-      {/* {loadMusic()} */}
       <div className="reproductor">
         <ViewImgAudio />
         <ControlAudio
@@ -186,10 +198,12 @@ function Reproductor({
           duration={duration}
           time={timeAudio}
           timeAct={time(timeAudio)}
+          replay={replay}
+          setReplay={setReplay}
         />
         <VolumenControl audio={audioElement.current} />
         <button className="quitMusic" onClick={state.resetMusic}>
-          X
+          <img src={iconClose} alt="" width={20} height={20} />
         </button>
       </div>
     </>
