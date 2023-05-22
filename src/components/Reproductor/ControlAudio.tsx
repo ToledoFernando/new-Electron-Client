@@ -4,11 +4,15 @@ import {
   useRef,
   ChangeEvent,
   ReactEventHandler,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import { musicaActual } from "../../store/music/Music";
 import playIcon from "../../../public/play.png";
 import pausa from "../../../public/pausa.png";
 import sig from "../../../public/sig.png";
+import iconReplay from "../../../public/replay.svg";
+
 import "./ControlAudio.scss";
 
 function ControlAudio({
@@ -18,9 +22,13 @@ function ControlAudio({
   timeAct,
   play,
   isPlay,
+  replay,
+  setReplay,
 }: {
   play: () => void;
   isPlay: boolean;
+  replay: boolean;
+  setReplay: Dispatch<SetStateAction<boolean>>;
   audio: HTMLAudioElement | null;
   duration: string;
   time: number;
@@ -85,6 +93,15 @@ function ControlAudio({
         max={audio?.duration}
       />
       <label>{duration}</label>
+      <button className="replayMusic" onClick={() => setReplay(!replay)}>
+        <img
+          src={iconReplay}
+          style={!replay ? { filter: "invert(70%)" } : { filter: "invert(0%)" }}
+          alt=""
+          width={15}
+          height={15}
+        />
+      </button>
     </div>
   );
 }

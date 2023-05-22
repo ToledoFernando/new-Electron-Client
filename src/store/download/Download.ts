@@ -8,9 +8,9 @@ export const download = create<IDownload>((set) => ({
   Name: "",
   downloadMusic: async (musica: IMusicUrl) => {
     send("downloadMusicURL", musica);
-    set((state) => ({ isDownloading: !state.downloadMusic }));
+    set({ Name: musica.name, isDownloading: true });
   },
-  setDownload: () => set((state) => ({ isDownloading: !state.isDownloading })),
+  setDownloadReset: () =>
+    set((state) => ({ isDownloading: !state.isDownloading })),
   setPorcentaje: (porcentaje: number) => set({ Porcentaje: porcentaje }),
-  setName: (name: string) => set({ Name: name }),
 }));

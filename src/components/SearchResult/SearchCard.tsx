@@ -4,14 +4,14 @@ import iconDowload from "../../../public/iconDownload.svg";
 import play from "../../../public/play.png";
 import { loading, musicaActual } from "../../store/music/Music";
 import { IMusicOnline } from "../../store/music/Musictype";
-import { download as DownloadMusic } from "../../store/download/download";
+import { download as DownloadMusic } from "../../store/download/Download";
+import { toast } from "sonner";
+import closeIcon from "../../../public/close.svg";
 import "./Search.scss";
 
 function SearchCard({ musica }: { musica: IMusicOnline }) {
   const musicaAct = musicaActual((state) => state.setMusicOnlyne);
-  const download = DownloadMusic((state) => state.downloadMusic);
-  const setName = DownloadMusic((state) => state.setName);
-  const setIsDownload = DownloadMusic((state) => state.setDownload);
+  const stateDownload = DownloadMusic((state) => state);
   const setLoad = loading((state) => state.setLoad);
 
   const getPlayMusic = async (musica: IMusicOnline) => {
@@ -21,12 +21,22 @@ function SearchCard({ musica }: { musica: IMusicOnline }) {
   };
 
   const downloadMusic = async (musica: IMusicOnline) => {
+    if (stateDownload.isDownloading) {
+      return toast.error("Ya se esta descargango una musica");
+    }
     setLoad();
     const music = await musicaAct(musica);
     setLoad();
-    setIsDownload();
-    download(music);
-    setName(musica.title);
+    stateDownload.downloadMusic(music);
+    toast.custom((t) => (
+      <div className="toast">
+        <div className="info-toast">
+          <h4>Descargando.....</h4>
+          <p>{musica.title}</p>
+        </div>
+        <img onClick={() => toast.dismiss(t)} src={closeIcon} />
+      </div>
+    ));
   };
 
   return (

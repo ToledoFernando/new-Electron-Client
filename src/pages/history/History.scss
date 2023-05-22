@@ -1,5 +1,32 @@
 .history {
   width: 100%;
+  overflow: hidden;
+
+  .histori-download {
+    overflow: auto;
+    height: 78%;
+    padding-bottom: 400px;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+    &::-webkit-scrollbar {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar:vertical {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #828282;
+      border-radius: 20px;
+      border: 0;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+  }
 
   .history-card {
     width: 90%;
@@ -30,6 +57,12 @@
         width: 15px;
         height: 15px;
         filter: invert(100%);
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+          transform: scale(1.1);
+        }
       }
     }
 
@@ -42,10 +75,12 @@
       background-position: center;
       background-size: cover;
       margin: auto;
-
-      .download {
+      display: flex;
+      align-items: center;
+      img {
         background-color: transparent;
-        width: 15px;
+        width: 100%;
+        text-align: center;
         height: 15px;
         filter: invert(100%);
       }

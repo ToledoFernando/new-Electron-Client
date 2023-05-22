@@ -10,16 +10,20 @@ import ReproductorDemo from "./components/Reproductor/ReproductorDemo.tsx";
 import Musicas from "./pages/music/Musicas.tsx";
 import { Toaster } from "sonner";
 import History from "./pages/history/History.tsx";
+import { download } from "./store/download/Download.ts";
+import Bar from "./components/BAR/Bar.tsx";
 import "./Root.css";
-import { download } from "./store/download/download.ts";
 
 function App() {
   const load = loading((state) => state.loadingMusic);
   const musica = musicaActual((state) => state.musica);
-  const setPorcentaje = download((state) => state.setPorcentaje);
+  const stateDownload = download((state) => state);
 
   const xd = (a: any, b: number) => {
-    setPorcentaje(b);
+    stateDownload.setPorcentaje(b);
+    if (b === 100) {
+      stateDownload.setDownloadReset();
+    }
   };
 
   useEffect(() => {
@@ -27,8 +31,9 @@ function App() {
   }, []);
   return (
     <div className="App">
+      <Bar />
       <NavBar />
-      <Toaster />
+      <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/downloads" element={<DownloadPage />} />
