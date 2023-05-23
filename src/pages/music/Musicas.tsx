@@ -14,8 +14,8 @@ function Musicas() {
 
   return (
     <div className="musics">
-      <br />
-      <h1>- Escuchar musica online</h1>
+      {/* <br /> */}
+      {/* <h1>- Escuchar musica online</h1> */}
       <div className="musicContainer">
         {musics.length &&
           musics.map((element, index) => (

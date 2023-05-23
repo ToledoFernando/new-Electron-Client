@@ -92,3 +92,5 @@ declare function send(event: string, data: any);
 declare function received(event: string, func: (...args: any) => void);
 
 declare function getApiData(): Promise<string>;
+
+declare function closeApp(): Promise<any>;

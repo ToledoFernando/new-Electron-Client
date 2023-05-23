@@ -6,6 +6,7 @@
   display: flex;
   justify-content: space-between;
   top: 0px;
+  z-index: 999;
 
   h1 {
     color: #c1c1c1;
@@ -26,14 +27,24 @@
       border-radius: 50%;
       border: 0;
       color: transparent;
+      font-size: 7px;
       font-weight: 900;
       cursor: pointer;
+      transition: all 0.3s;
 
       &[class="minimize"] {
         background-color: #43f143;
+
+        &:hover {
+          font-size: 10px;
+          color: #fff;
+        }
       }
       &[class="exit"] {
         background-color: #f94848;
+        &:hover {
+          color: #fff;
+        }
       }
     }
   }
