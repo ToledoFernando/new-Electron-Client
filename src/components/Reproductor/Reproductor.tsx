@@ -10,14 +10,18 @@ import loadAnim from "../../../public/loadAnim.svg";
 import iconClose from "../../../public/close.svg";
 import iconReplay from "../../../public/replay.svg";
 import "./Reproductor.scss";
+import { download } from "../../store/download/Download";
+import { toast } from "sonner";
 
 function ViewImgAudio() {
   const audioIMG = musicaActual((state) => state.musica);
-  const downloadMusic = musicaActual((state) => state.downloadMusic);
+  const downloadMusic = download((state) => state);
   const load = loading((state) => state.loadingMusic);
 
   const getDownloadMusic = (musica: IMusicUrl) => {
-    downloadMusic(musica);
+    downloadMusic.downloadMusic(musica);
+    toast.error("Descarga iniciada");
+    console.log(musica);
   };
 
   if (load) {
@@ -147,7 +151,6 @@ function Reproductor({
 
   useEffect(() => {
     if (state.musica) {
-      // audioElement.current?.addEventListener("ended", finishAudio);
       if (!state.musica?.online) {
         const music = new Blob([musica.buffer], { type: "audio/mp3" });
         const audio = document.createElement("audio");

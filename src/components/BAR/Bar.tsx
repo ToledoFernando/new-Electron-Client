@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Bar.scss";
+import ConfirmExit from "./ConfirmExit";
 
 function Bar() {
+  const [modal, setModal] = useState<boolean>(false);
+
   return (
-    <div className="bar">
-      <h1>ElectronPlayer</h1>
-      <div className="opt">
-        <button className="minimize"></button>
-        <button className="exit"></button>
+    <>
+      {modal && <ConfirmExit set={setModal} />}
+      <div className="bar">
+        <h1>ElectronPlayer</h1>
+        <div className="opt">
+          <button className="minimize">-</button>
+          <button className="exit" onClick={() => setModal(!modal)}>
+            X
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

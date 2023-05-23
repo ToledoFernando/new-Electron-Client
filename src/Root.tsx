@@ -19,15 +19,17 @@ function App() {
   const musica = musicaActual((state) => state.musica);
   const stateDownload = download((state) => state);
 
-  const xd = (a: any, b: number) => {
+  const newPorsentaje = (a: any, b: number) => {
     stateDownload.setPorcentaje(b);
-    if (b === 100) {
-      stateDownload.setDownloadReset();
-    }
+  };
+
+  const finishDownload = () => {
+    stateDownload.setDownloadReset();
   };
 
   useEffect(() => {
-    received("newProgress", xd);
+    received("newProgress", newPorsentaje);
+    received("finishProgress", finishDownload);
   }, []);
   return (
     <div className="App">

@@ -5,19 +5,19 @@ import iconDownload from "../../../public/iconDownload.svg";
 import { useEffect } from "react";
 import "./History.scss";
 
+type HistoryProps = { name: string; id: number };
+
 function History() {
   const downloadStore = download((state) => state);
-  const [historyDownload, setHistoryDownload] = useState<string[]>([]);
 
   useEffect(() => {
-    const history = localStorage.getItem("historyMusic");
-    if (history) setHistoryDownload([...historyDownload, history]);
-    console.log(downloadStore);
+    const historial = localStorage.getItem("historyMusic");
+    if (!historial) return downloadStore.setHistory([]);
+    downloadStore.setHistory(JSON.parse(historial));
     return () => console.log("OAIWDBOIAWBD");
   }, []);
   return (
     <div className="history">
-      <h1>History</h1>
       <div className="history-card">
         <p>Nombre de la musica</p>
         <label>Estado</label>
@@ -34,12 +34,12 @@ function History() {
       )}
 
       <div className="histori-download">
-        {historyDownload.length === 0 ? (
+        {downloadStore.history.length === 0 ? (
           <h1>No se encontro musicas descargadas</h1>
         ) : null}
-        {/* {xd.map((num, index) => (
-          <HistoryCard position={index} key={num} />
-        ))} */}
+        {downloadStore.history?.map((name, index) => (
+          <HistoryCard position={index} key={index} name={name} />
+        ))}
       </div>
     </div>
   );

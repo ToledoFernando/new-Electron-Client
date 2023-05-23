@@ -42,7 +42,7 @@ export const musicaActual = create<IMusicaActual>((set) => ({
     set(() => ({ musica: null }));
   },
 
-  setMusicOnlyne: async (musica: IMusicOnline): Promise<any> => {
+  setMusicOnlyne: async (musica: IMusicOnline): Promise<IMusicUrl> => {
     console.log(musica);
     const xd: IMusicUrl = await getURLMusic(musica.videoId);
     xd.online = true;
@@ -89,6 +89,5 @@ export const musicApi = create<IMusicApi>((set) => ({
     musica = await getApiData();
 
     set({ data: musica });
-    // console.log(musica);
   },
 }));

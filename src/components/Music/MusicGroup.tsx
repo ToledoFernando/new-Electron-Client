@@ -26,7 +26,8 @@ function MusicGroup({ musica }: { musica: IMusicAPIResult }) {
   return (
     <>
       <div className="relativ">
-        <h1>{Object.keys(musica)}</h1>
+        {/* <h1>{Object.keys(musica)}</h1> */}
+        <br />
         <div className="group" ref={group}>
           <span className="menos">
             <button onClick={back}>{"<"}</button>
