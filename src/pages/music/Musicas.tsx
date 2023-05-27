@@ -4,21 +4,18 @@ import MusicGroup from "../../components/Music/MusicGroup";
 import "./Music.scss";
 
 function Musicas() {
-  const API = musicApi((state) => state.setData);
-  const musics = musicApi((state) => state.data);
+  const apiStore = musicApi((state) => state);
 
   useEffect(() => {
-    if (!musics.length) API();
-    console.log(musics);
+    if (apiStore.data.length === 0) apiStore.setData();
   }, []);
 
   return (
     <div className="musics">
-      {/* <br /> */}
-      {/* <h1>- Escuchar musica online</h1> */}
+      <h1>- Escuchar musica online</h1>
       <div className="musicContainer">
-        {musics.length &&
-          musics.map((element, index) => (
+        {apiStore.data.length &&
+          apiStore.data.map((element, index) => (
             <MusicGroup musica={element} key={index} />
           ))}
       </div>
