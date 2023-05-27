@@ -2,7 +2,9 @@ import { ReactNode } from "react";
 import { Nodo } from "../user/ListClass";
 
 export interface IMusicAPIResult {
-  [key: string]: IMusicAPIResultMusic[];
+  // [key: string]: IMusicAPIResultMusic[];
+  name: string;
+  musics: IMusicAPIResultMusic[];
 }
 
 export interface IMusicAPIResultMusic {

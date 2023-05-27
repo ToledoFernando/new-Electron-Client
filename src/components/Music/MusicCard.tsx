@@ -10,12 +10,19 @@ function MusicCard({ musica }: { musica: IMusicAPIResultMusic }) {
   const setMusicOnline = musicaActual((state) => state.setMusicApi);
 
   const xd = (data: IMusicAPIResultMusic) => {
-    // console.log("#############3");
     setMusicOnline(data);
   };
   return (
     <div className="card_music" onClick={() => xd(musica)}>
-      <img src={musica.musicIMG} width={40} height={40} alt="" />
+      <img
+        src={
+          musica.musicIMG ||
+          "https://th.bing.com/th/id/OIG.ydlwZSfll52z3d9UxnYW?pid=ImgGn"
+        }
+        width={40}
+        height={40}
+        alt=""
+      />
       <div className="info">
         <p className={musica.name.length > 60 ? "name_long" : "name"}>
           {musica.name}

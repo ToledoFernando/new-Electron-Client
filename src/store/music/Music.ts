@@ -87,6 +87,7 @@ export const musicApi = create<IMusicApi>((set) => ({
   setData: async () => {
     let musica: IMusicAPIResult[];
     musica = await getApiData();
+    console.log(musica);
 
     set({ data: musica });
   },

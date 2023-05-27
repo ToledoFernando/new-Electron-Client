@@ -26,18 +26,15 @@ function MusicGroup({ musica }: { musica: IMusicAPIResult }) {
   return (
     <>
       <div className="relativ">
-        {/* <h1>{Object.keys(musica)}</h1> */}
         <br />
         <div className="group" ref={group}>
           <span className="menos">
             <button onClick={back}>{"<"}</button>
           </span>
           <div className="content">
-            {Object.values(musica)[0].map(
-              (music: IMusicAPIResultMusic, index) => (
-                <MusicCard key={index} musica={music} />
-              )
-            )}
+            {musica.musics.map((music: IMusicAPIResultMusic, index) => (
+              <MusicCard key={index} musica={music} />
+            ))}
           </div>
           <span className="mas">
             <button onClick={next}>{">"}</button>
