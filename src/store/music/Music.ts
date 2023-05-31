@@ -24,10 +24,11 @@ export const musicaActual = create<IMusicaActual>((set) => ({
   act: null,
   sig: null,
   musica: null,
+
   setMusica: async (nodo: Nodo) => {
     if (nodo === null) return;
     let newMusic: IMusica;
-    newMusic = await getMusic(nodo.value);
+    newMusic = (await window.getMusic(nodo.value)) as IMusica;
     newMusic.online = false;
 
     console.log(newMusic);
@@ -42,9 +43,21 @@ export const musicaActual = create<IMusicaActual>((set) => ({
     set(() => ({ musica: null }));
   },
 
+  getMusicYT: async (musica: IMusicAPIResultMusic) => {
+    const xd = (await window.getMusicYTDL(musica.musicURL)) as IMusicUrl;
+
+    xd.online = true;
+    xd.id = musica._id;
+    xd.img = musica.musicIMG;
+    xd.name = musica.name;
+    xd.time = musica.duration;
+    xd.author = musica.artist;
+    set({ musica: xd });
+  },
+
   setMusicOnlyne: async (musica: IMusicOnline): Promise<IMusicUrl> => {
     console.log(musica);
-    const xd: IMusicUrl = await getURLMusic(musica.videoId);
+    const xd = (await window.getURLMusic(musica.videoId)) as IMusicUrl;
     xd.online = true;
     xd.img = musica.img;
     xd.name = musica.title;
@@ -56,13 +69,13 @@ export const musicaActual = create<IMusicaActual>((set) => ({
   },
 
   setMusicApi: (music: IMusicAPIResult | IMusicAPIResultMusic) => {
-    // console.log(music);
     let xd: IMusicUrl = {} as IMusicUrl;
-    if (typeof music.name != "string") return;
-    if (typeof music.musicIMG != "string") return;
-    if (typeof music.duration != "number") return;
-    if (typeof music.artist != "string") return;
-    if (typeof music.musicURL != "string") return;
+
+    if (!("name" in music)) return;
+    if (!("musicIMG" in music)) return;
+    if (!("duration" in music)) return;
+    if (!("artist" in music)) return;
+    if (!("musicURL" in music)) return;
 
     xd.online = true;
     xd.img = music.musicIMG;
@@ -86,9 +99,7 @@ export const musicApi = create<IMusicApi>((set) => ({
   data: [],
   setData: async () => {
     let musica: IMusicAPIResult[];
-    musica = await getApiData();
-    console.log(musica);
-
+    musica = await window.getApiData();
     set({ data: musica });
   },
 }));

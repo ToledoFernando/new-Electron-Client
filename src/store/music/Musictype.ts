@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { Nodo } from "../user/ListClass";
 
 export interface IMusicAPIResult {
-  // [key: string]: IMusicAPIResultMusic[];
   name: string;
   musics: IMusicAPIResultMusic[];
 }
@@ -43,6 +42,7 @@ export interface IMusicApi {
 }
 
 export interface IMusicUrl {
+  id?: string;
   name: string;
   time: number;
   author: string;
@@ -113,6 +113,7 @@ export interface IMusicaActual {
   setMusicOnlyne: (music: IMusicOnline) => Promise<any>;
   setMusicApi: (music: IMusicAPIResult | IMusicAPIResultMusic) => void;
   resetMusic: () => void;
+  getMusicYT: (music: IMusicAPIResultMusic) => Promise<any>;
   // downloadMusic: (musica: IMusicUrl) => Promise<any>;
 }
 

@@ -10,7 +10,7 @@ function ConfirmExit({ set }: { set: Dispatch<SetStateAction<boolean>> }) {
           <button className="cancel" onClick={() => set(false)}>
             Cancelar
           </button>
-          <button className="exit" onClick={() => closeApp()}>
+          <button className="exit" onClick={() => window.closeApp()}>
             Salir
           </button>
         </div>

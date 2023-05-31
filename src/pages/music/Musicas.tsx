@@ -12,7 +12,6 @@ function Musicas() {
 
   return (
     <div className="musics">
-      <h1>- Escuchar musica online</h1>
       <div className="musicContainer">
         {apiStore.data.length &&
           apiStore.data.map((element, index) => (

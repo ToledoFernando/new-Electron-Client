@@ -5,6 +5,7 @@ import { IMusicOnline } from "../../store/music/Musictype";
 import { loading } from "../../store/music/Music";
 import iconLoad from "../../../public/loadAnim.svg";
 import "./Search.scss";
+import { IResultSearch } from "../../vite-env";
 
 function SearchResult() {
   const loadList = loading((state) => state.loadingList);
@@ -13,9 +14,10 @@ function SearchResult() {
   return (
     <div className="div-result">
       {music.length > 0 ? (
-        music.map((music: IMusicOnline, index: number) => (
-          <SearchCard key={index} musica={music} />
-        ))
+        music.map((music: IMusicOnline | IResultSearch, index: number) => {
+          if (!("img" in music)) return;
+          return <SearchCard key={index} musica={music} />;
+        })
       ) : (
         <div className="sin_musica">
           {loadList ? (

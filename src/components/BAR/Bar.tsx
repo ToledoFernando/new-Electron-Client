@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Bar.scss";
 import ConfirmExit from "./ConfirmExit";
 
@@ -11,7 +11,9 @@ function Bar() {
       <div className="bar">
         <h1>ElectronPlayer</h1>
         <div className="opt">
-          <button className="minimize">-</button>
+          <button className="minimize" onClick={() => window.hide()}>
+            -
+          </button>
           <button className="exit" onClick={() => setModal(!modal)}>
             X
           </button>

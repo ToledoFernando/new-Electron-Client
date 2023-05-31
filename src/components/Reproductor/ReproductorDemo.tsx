@@ -1,21 +1,20 @@
-import { useRef, useEffect, useState, ChangeEvent } from "react";
-import { IMusicProps } from "./types";
-import ControlAudio from "./ControlAudio";
 import { loading, musicaActual } from "../../store/music/Music";
 import audioLogo from "../../../public/musicaLogo.png";
 import volumenIcon from "../../../public/volumenIcon.png";
 import downloadIcon from "../../../public/iconDownload.svg";
-import { IMusicUrl } from "../../store/music/Musictype";
+import { IMusicUrl, IMusica } from "../../store/music/Musictype";
 import loadAnim from "../../../public/loadAnim.svg";
-import "./Reproductor.scss";
+import { download } from "../../store/download/Download";
 import ControlAudioDemo from "./ControlAudioDemon";
+import "./Reproductor.scss";
 
 function ViewImgAudio() {
   const audioIMG = musicaActual((state) => state.musica);
-  const downloadMusic = musicaActual((state) => state.downloadMusic);
+  const downloadMusic = download((state) => state.downloadMusic);
   const load = loading((state) => state.loadingMusic);
 
-  const getDownloadMusic = (musica: IMusicUrl) => {
+  const getDownloadMusic = (musica: IMusicUrl | IMusica) => {
+    if (!("bitrate" in musica)) return;
     downloadMusic(musica);
   };
 

@@ -1,7 +1,7 @@
 import { IMusicOnline } from "../music/Musictype";
 
 export interface ISearch {
-  musics: IMusicOnline[];
+  musics: IResultSearch[];
   getMusicSearch: (name: string) => Promise<any>;
   clearList: () => void;
 }
