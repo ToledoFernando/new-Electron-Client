@@ -8,7 +8,7 @@ export const download = create<IDownload>((set) => ({
   Name: "",
   history: [],
   downloadMusic: async (musica: IMusicUrl) => {
-    send("downloadMusicURL", musica);
+    window.send("downloadMusicURL", musica);
     set({ Name: musica.name, isDownloading: true });
   },
   setDownloadReset: () =>

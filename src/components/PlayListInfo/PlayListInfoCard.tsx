@@ -1,8 +1,8 @@
 import { musicaActual, loading } from "../../store/music/Music";
 import { IMusicAPIResultMusic } from "../../store/music/Musictype";
-import "./MusicGroup.scss";
+import "./PlayListInfoCard.scss";
 
-function MusicCard({ musica }: { musica: IMusicAPIResultMusic }) {
+function PlayListInfoCard({ musica }: { musica: IMusicAPIResultMusic }) {
   const musicaAct = musicaActual((state) => state.getMusicYT);
   const setLoad = loading((state) => state.setLoad);
 
@@ -19,7 +19,7 @@ function MusicCard({ musica }: { musica: IMusicAPIResultMusic }) {
     setLoad();
   };
   return (
-    <div className="card_music" onClick={() => getMusic(musica)}>
+    <div className="card_music_playList" onClick={() => getMusic(musica)}>
       <img
         src={
           musica.musicIMG ||
@@ -30,7 +30,7 @@ function MusicCard({ musica }: { musica: IMusicAPIResultMusic }) {
         alt=""
       />
       <div className="info">
-        <p className={musica.name.length > 60 ? "name_long" : "name"}>
+        <p className={musica.name.length > 10 ? "name_long" : "name"}>
           {musica.name}
         </p>
         <p>- {musica.artist}</p>
@@ -40,4 +40,4 @@ function MusicCard({ musica }: { musica: IMusicAPIResultMusic }) {
   );
 }
 
-export default MusicCard;
+export default PlayListInfoCard;

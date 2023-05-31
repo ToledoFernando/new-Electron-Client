@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import logoMusica from "../../../public/musicaLogo.png";
 import { musicaActual } from "../../store/music/Music";
 import "./MusicaActual.scss";
+import { IMusica } from "../../store/music/Musictype";
 
 function MusicaActual() {
   const musica = musicaActual((state) => state.musica);
@@ -18,6 +19,7 @@ function MusicaActual() {
   useEffect(() => {
     if (musica === null) return;
     if (musica.online) return;
+    if (!("buffer" in musica)) return;
     const audio = document.createElement("audio");
     audio.preload = "metadata";
     const blob = new Blob([musica.buffer], { type: "type/mp3" });
@@ -52,12 +54,18 @@ function MusicaActual() {
             {musica.name.slice(0, -4)}
           </h1>
           <p className="duration">
-            - Duracion: {musica.online ? time(musica.time - 1) : duration}
+            - Duracion:{" "}
+            {musica.online
+              ? "time" in musica && time(musica.time - 1)
+              : duration}
           </p>
           {musica.online && (
             <>
               <br />
-              <p className="duration"> - {musica.author}</p>
+              <p className="duration">
+                {" "}
+                - {"author" in musica && musica.author}
+              </p>
             </>
           )}
         </div>

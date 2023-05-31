@@ -7,7 +7,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { musicaActual } from "../../store/music/Music";
+import { loading, musicaActual } from "../../store/music/Music";
 import playIcon from "../../../public/play.png";
 import pausa from "../../../public/pausa.png";
 import sig from "../../../public/sig.png";

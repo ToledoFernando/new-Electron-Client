@@ -13,11 +13,16 @@ import History from "./pages/history/History.tsx";
 import { download } from "./store/download/Download.ts";
 import Bar from "./components/BAR/Bar.tsx";
 import "./Root.css";
+import PlayList from "./pages/PlayList/PlayList.tsx";
+import PlayListInfo from "./pages/PlayListinfo/PlayListInfo.tsx";
+import MusicProblem from "./components/MusicProblem/MusicProblem.tsx";
+import { infoProblemStore } from "./store/infoProblema/infoProblema.ts";
 
 function App() {
   const load = loading((state) => state.loadingMusic);
   const musica = musicaActual((state) => state.musica);
   const stateDownload = download((state) => state);
+  const isProblem = infoProblemStore((state) => state.isProblem);
 
   const newPorsentaje = (a: any, b: number) => {
     stateDownload.setPorcentaje(b);
@@ -28,11 +33,13 @@ function App() {
   };
 
   useEffect(() => {
-    received("newProgress", newPorsentaje);
-    received("finishProgress", finishDownload);
+    console.log(window);
+    window.received("newProgress", newPorsentaje);
+    window.received("finishProgress", finishDownload);
   }, []);
   return (
     <div className="App">
+      {isProblem && <MusicProblem />}
       <Bar />
       <NavBar />
       <Toaster position="top-right" />
@@ -42,6 +49,8 @@ function App() {
         <Route path="/local" element={<Local />} />
         <Route path="/music" element={<Musicas />} />
         <Route path="/history" element={<History />} />
+        <Route path="/playlist" element={<PlayList />} />
+        <Route path="/playlist/:id" element={<PlayListInfo />} />
       </Routes>
       {musica && <Reproductor musica={musica} />}
       {load && !musica && <ReproductorDemo />}

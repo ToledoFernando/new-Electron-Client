@@ -5,20 +5,24 @@ import { loading, musicaActual } from "../../store/music/Music";
 import audioLogo from "../../../public/musicaLogo.png";
 import volumenIcon from "../../../public/volumenIcon.png";
 import downloadIcon from "../../../public/iconDownload.svg";
+import alertIcon from "../../../public/alert.svg";
 import { IMusicUrl, IMusica } from "../../store/music/Musictype";
 import loadAnim from "../../../public/loadAnim.svg";
 import iconClose from "../../../public/close.svg";
-import iconReplay from "../../../public/replay.svg";
-import "./Reproductor.scss";
 import { download } from "../../store/download/Download";
 import { toast } from "sonner";
+import "./Reproductor.scss";
+import { infoProblemStore } from "../../store/infoProblema/infoProblema";
 
 function ViewImgAudio() {
   const audioIMG = musicaActual((state) => state.musica);
   const downloadMusic = download((state) => state);
   const load = loading((state) => state.loadingMusic);
 
-  const getDownloadMusic = (musica: IMusicUrl) => {
+  const getDownloadMusic = (musica: IMusicUrl | IMusica) => {
+    //validamos que musica sea un type IMusicUrl
+    if (!("bitrate" in musica)) return;
+
     downloadMusic.downloadMusic(musica);
     toast.error("Descarga iniciada");
     console.log(musica);
@@ -110,6 +114,7 @@ function Reproductor({
   const [isPlay, setIsPlay] = useState<boolean>(true);
   const [replay, setReplay] = useState<boolean>(false);
   const state = musicaActual((state) => state);
+  const infoProblemData = infoProblemStore((state) => state);
 
   const time = (num: number) => {
     const minutos = Math.floor(num / 60);
@@ -141,7 +146,6 @@ function Reproductor({
       audioElement.current.pause();
       audioElement.current.currentTime = 0;
       audioElement.current.play();
-      // setIsPlay(true);
       return;
     } else {
       if (state.sig === null) return setIsPlay(false);
@@ -152,6 +156,7 @@ function Reproductor({
   useEffect(() => {
     if (state.musica) {
       if (!state.musica?.online) {
+        if (!("buffer" in musica)) return;
         const music = new Blob([musica.buffer], { type: "audio/mp3" });
         const audio = document.createElement("audio");
         audio.preload = "metadata";
@@ -165,8 +170,14 @@ function Reproductor({
         setAudio(url);
       } else {
         try {
-          console.log("ES ONLINE");
+          if (!("url" in state.musica)) return;
           const audio = document.createElement("audio");
+          audio.addEventListener("loadstart", () =>
+            console.log("Iniciando carga del audio")
+          );
+          audio.addEventListener("error", () =>
+            console.log("Fallo la carga del audio")
+          );
           audio.preload = "metadata";
           audio.onloadedmetadata = () => {
             const result = time(audio.duration);
@@ -174,13 +185,22 @@ function Reproductor({
           };
           setIsPlay(true);
           audio.src = state.musica.url;
+          audio.volume = audioElement?.current?.volume || 0;
           setAudio(state.musica.url);
         } catch (error) {
-          console.log("IAWBDOIAWBDOIBAWOID xd");
+          state.resetMusic();
+          toast.error("Ocurrio un error al solicitar la musica");
         }
       }
     }
   }, [musica]);
+
+  const setProblem = () => {
+    if (state.musica === null) return;
+    if (!("id" in state.musica)) return;
+    if (state.musica.id === undefined) return;
+    infoProblemData.setProblem(state.musica.id);
+  };
 
   return (
     <>
@@ -205,9 +225,23 @@ function Reproductor({
           setReplay={setReplay}
         />
         <VolumenControl audio={audioElement.current} />
-        <button className="quitMusic" onClick={state.resetMusic}>
-          <img src={iconClose} alt="" width={20} height={20} />
-        </button>
+        <div className="butonOpt">
+          {/* Validamos que exista el id en el estado */}
+          {state.musica &&
+          "id" in state.musica &&
+          state.musica.id !== undefined ? (
+            <img
+              src={alertIcon}
+              width={20}
+              height={20}
+              onClick={setProblem}
+              title="Reportar Problema con la musica"
+            />
+          ) : null}
+          <button className="quitMusic" onClick={state.resetMusic}>
+            <img src={iconClose} alt="" width={20} height={20} />
+          </button>
+        </div>
       </div>
     </>
   );

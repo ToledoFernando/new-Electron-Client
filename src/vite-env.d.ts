@@ -5,6 +5,22 @@ interface IMusic {
   path: string;
 }
 
+interface IMusicAPIResult {
+  name: string;
+  musics: IMusicAPIResultMusic[];
+}
+
+interface IMusicAPIResultMusic {
+  _id: string;
+  name: string;
+  artist: string;
+  musicURL: string;
+  musicIMG: string;
+  duration: number;
+  gener: string[];
+  __v: number;
+}
+
 interface IResult {
   files: IMusic[];
   folders: IMusic[];
@@ -73,24 +89,31 @@ export interface IndexRange {
   end: string;
 }
 
-declare function getMusicFolder(): Promise<IResult>;
+export interface IReportProblem {
+  musicaID: string;
+  title: string;
+  detalle: string;
+}
 
-declare function getMusic(file: IMusic): Promise<IMusicaResult>;
-
-declare function getMusicFolderName(folder: IMusic): Promise<IResult>;
-
-declare function getBackToFolder(path: string[]): Promise<IResult>;
-
-declare function searchMusicYT(name: string): Promise<IResultSearch[]>;
-
-declare function getURLMusic(name: string): Promise<string>;
-
-declare function downloadMusicURL(musica: IMusic): Promise<any>;
-
-declare function send(event: string, data: any);
-
-declare function received(event: string, func: (...args: any) => void);
-
-declare function getApiData(): Promise<string>;
-
-declare function closeApp(): Promise<any>;
+declare global {
+  interface Window {
+    getMusicFolder: () => Promise<IResult>;
+    getMusic: (file: IMusic) => Promise<IMusicaResult>;
+    getMusicFolderName: (folder: IMusic) => Promise<IResult>;
+    getBackToFolder: (path: string[]) => Promise<IResult>;
+    searchMusicYT: (name: string) => Promise<IResultSearch[]>;
+    getURLMusic: (name: string) => Promise<IMusicUrl>;
+    downloadMusicURL: (musica: IMusic) => Promise<any>;
+    send: (event: string, data: any) => void;
+    received: (event: string, func: (...args: any) => void) => void;
+    getApiData: () => Promise<IMusicAPIResult[]>;
+    closeApp: () => Promise<any>;
+    getMusicYTDL: (videoURL: string) => Promise<any>;
+    moveWindow: (event: string) => Promise<any>;
+    getAllPlayList: () => Promise<any>;
+    getMusicByPlayList: (id: string) => Promise<any>;
+    hide: () => void;
+    sendNewProblemsADM: (problem: IReportProblem) => Promise<any>;
+    openWebOficial: () => void;
+  }
+}

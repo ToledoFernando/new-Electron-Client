@@ -22,11 +22,9 @@
 }
 
 html {
-  /* background-color: var(--bg-c1); */
   background-color: #00000000;
   color: var(--font-c1);
   font-family: var(--font);
-  /* width: 300px; */
 }
 
 body {

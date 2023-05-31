@@ -1,12 +1,10 @@
 import React from "react";
-// import { IResultSearch } from "./SearchTypes";
 import iconDowload from "../../../public/iconDownload.svg";
 import play from "../../../public/play.png";
 import { loading, musicaActual } from "../../store/music/Music";
 import { IMusicOnline } from "../../store/music/Musictype";
 import { download as DownloadMusic } from "../../store/download/Download";
 import { toast } from "sonner";
-import closeIcon from "../../../public/close.svg";
 import "./Search.scss";
 
 function SearchCard({ musica }: { musica: IMusicOnline }) {

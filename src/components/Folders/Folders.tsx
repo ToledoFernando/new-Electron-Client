@@ -3,6 +3,11 @@ import FolderCard, { BackFolder } from "./FolderCard";
 import { getMusic } from "../../store/user/UsersMusic";
 import "./Folders.scss";
 
+interface IMusic {
+  name: string;
+  path: string;
+}
+
 function Folders({ folders }: { folders: IMusic[] }) {
   const getFolder = getMusic((state) => state.getMusicFolder);
   const backFolder = getMusic((state) => state.folderActual);

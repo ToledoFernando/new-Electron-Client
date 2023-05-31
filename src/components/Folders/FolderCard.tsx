@@ -16,6 +16,11 @@ export function BackFolder() {
   );
 }
 
+interface IMusic {
+  name: string;
+  path: string;
+}
+
 function FolderCard({
   folder,
   get,

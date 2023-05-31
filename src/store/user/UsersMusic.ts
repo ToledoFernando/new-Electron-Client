@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { IMusic, MusicStoreState, IMusicListLocal } from "./UserMusicTypes";
+import {
+  IMusic,
+  MusicStoreState,
+  IMusicListLocal,
+  IResult,
+} from "./UserMusicTypes";
 import { List } from "./ListClass";
 
 export const getMusic = create<MusicStoreState>((set) => ({
@@ -11,7 +16,7 @@ export const getMusic = create<MusicStoreState>((set) => ({
   getMusic: async () => {
     let musicas: IResult;
 
-    musicas = await getMusicFolder();
+    musicas = await window.getMusicFolder();
 
     const NodeListMusic = new List();
     let folders: IMusic[] = [];
@@ -64,7 +69,7 @@ export const getMusic = create<MusicStoreState>((set) => ({
   },
   getMusicFolder: async (folder: IMusic) => {
     let musicas: IResult;
-    musicas = await getMusicFolderName(folder);
+    musicas = await window.getMusicFolderName(folder);
 
     const NodeListMusic = new List();
     let folders: IMusic[] = [];
@@ -93,7 +98,7 @@ export const getMusic = create<MusicStoreState>((set) => ({
   backToFolder: async (path: string[]) => {
     let musicas: IResult;
 
-    musicas = await getBackToFolder(path);
+    musicas = await window.getBackToFolder(path);
 
     const NodeListMusic = new List();
     let folders: IMusic[] = [];
