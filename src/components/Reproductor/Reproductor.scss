@@ -1,11 +1,11 @@
 .reproductor {
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   width: 100%;
   height: 50px;
   // background-color: #09090958;
   z-index: 999;
-  background-color: #42424228;
+  background-color: #51515128;
   backdrop-filter: blur(3px);
   display: flex;
   justify-content: space-around;

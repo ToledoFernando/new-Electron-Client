@@ -1,9 +1,16 @@
 import { ReactNode } from "react";
-import { Nodo } from "../user/ListClass";
+import { Nodo as local } from "../user/ListClass";
+import { Nodo as bbdd } from "../../pages/PlayListinfo/ClassList";
+import { IMusic } from "../user/UserMusicTypes";
 
 export interface IMusicAPIResult {
   name: string;
   musics: IMusicAPIResultMusic[];
+}
+
+export interface IDataSearch {
+  name: string;
+  genero: string;
 }
 
 export interface IMusicAPIResultMusic {
@@ -26,6 +33,7 @@ export interface IMusica {
 }
 
 export interface IMusicAPI {
+  id?: number;
   _id: string;
   name: string;
   artist: string;
@@ -37,8 +45,13 @@ export interface IMusicAPI {
 }
 
 export interface IMusicApi {
-  data: IMusicAPIResult[];
+  data: IMusicAPIResult[] | IMusicAPI[];
+  dataAux: IMusicAPIResult[];
+  load: boolean;
+  setLoad: (state: boolean) => void;
   setData: () => void;
+  getSearchMusicAPI: (dataSearch: IDataSearch) => Promise<any>;
+  resetData: () => void;
 }
 
 export interface IMusicUrl {
@@ -105,15 +118,19 @@ export interface IMusicOnline {
 }
 
 export interface IMusicaActual {
-  ant: Nodo | null;
-  act: Nodo | null;
-  sig: Nodo | null;
+  ant: local | bbdd | null;
+  act: local | bbdd | null;
+  sig: local | bbdd | null;
   musica: IMusicUrl | IMusica | null;
-  setMusica: (nodo: Nodo) => void;
+  setMusica: (nodo: local | bbdd) => void;
   setMusicOnlyne: (music: IMusicOnline) => Promise<any>;
   setMusicApi: (music: IMusicAPIResult | IMusicAPIResultMusic) => void;
   resetMusic: () => void;
-  getMusicYT: (music: IMusicAPIResultMusic) => Promise<any>;
+  getMusicYT: (
+    music: IMusicAPIResultMusic | IMusic,
+    ant: local | bbdd | null,
+    sig: local | bbdd | null
+  ) => Promise<any>;
   // downloadMusic: (musica: IMusicUrl) => Promise<any>;
 }
 

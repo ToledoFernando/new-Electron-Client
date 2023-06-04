@@ -16,21 +16,27 @@
     padding: 3px 15px 2px;
   }
 
+  .nameMusic {
+    font-size: 13px;
+    color: #fefefe8c;
+    -webkit-app-region: none;
+    padding: 0px 5px;
+  }
+
   .opt {
     width: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     position: relative;
+    margin-right: 25px;
 
-    margin: 8px 5px;
     button {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
+      width: 30px;
+      height: 20px;
       border: 0;
       color: transparent;
-      font-size: 7px;
+      font-size: 15px;
       font-weight: 900;
       -webkit-app-region: none;
 
@@ -38,16 +44,25 @@
       transition: all 0.3s;
 
       &[class="minimize"] {
-        background-color: #43f143;
+        background-color: transparent;
+        font-size: 25px;
+        text-align: center;
+        color: #727171;
 
         &:hover {
-          font-size: 10px;
+          background-color: #0e0e0e;
           color: #fff;
         }
       }
       &[class="exit"] {
-        background-color: #f94848;
+        background-color: transparent;
+        color: #727171;
+        padding-top: 1px;
+        font-family: var(--font);
+        -webkit-text-stroke: 0.1px;
+
         &:hover {
+          background-color: #f94848;
           color: #fff;
         }
       }

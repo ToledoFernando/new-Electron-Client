@@ -7,6 +7,11 @@
     height: 78%;
     padding-bottom: 400px;
 
+    .no-history {
+      text-align: center;
+      padding-top: 10px;
+    }
+
     &::-webkit-scrollbar {
       -webkit-appearance: none;
     }

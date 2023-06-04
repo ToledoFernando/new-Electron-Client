@@ -1,10 +1,8 @@
-import { useRef } from "react";
-import {
-  IMusicAPIResult,
-  IMusicAPIResultMusic,
-} from "../../store/music/Musictype";
-import MusicCard from "./MusicCard";
+import { useEffect, useRef, useState } from "react";
+import { IMusicAPIResult } from "../../store/music/Musictype";
 import "./MusicGroup.scss";
+import { List } from "../../pages/PlayListinfo/ClassList";
+import CardMusic from "./CardMusic";
 
 function MusicGroup({ musica }: { musica: IMusicAPIResult }) {
   const group = useRef<HTMLDivElement>(null);
@@ -23,6 +21,14 @@ function MusicGroup({ musica }: { musica: IMusicAPIResult }) {
     group.current.scrollLeft -= desplazamiento;
   };
 
+  const [nodoList, setNodoList] = useState<List>();
+
+  useEffect(() => {
+    const list = new List();
+    musica.musics.forEach((music) => list.push(music));
+    setNodoList(list);
+  }, []);
+
   return (
     <>
       <div className="relativ">
@@ -32,9 +38,7 @@ function MusicGroup({ musica }: { musica: IMusicAPIResult }) {
             <button onClick={back}>{"<"}</button>
           </span>
           <div className="content">
-            {musica.musics.map((music: IMusicAPIResultMusic, index) => (
-              <MusicCard key={index} musica={music} />
-            ))}
+            {nodoList && <CardMusic musica={nodoList} />}
           </div>
           <span className="mas">
             <button onClick={next}>{">"}</button>

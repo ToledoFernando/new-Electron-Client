@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+import { IPlayList } from "./store/playList/PlayListTypes";
+
 interface IMusic {
   name: string;
   path: string;
@@ -95,6 +97,11 @@ export interface IReportProblem {
   detalle: string;
 }
 
+export interface IDataSearch {
+  name: string;
+  genero: string;
+}
+
 declare global {
   interface Window {
     getMusicFolder: () => Promise<IResult>;
@@ -115,5 +122,11 @@ declare global {
     hide: () => void;
     sendNewProblemsADM: (problem: IReportProblem) => Promise<any>;
     openWebOficial: () => void;
+    getGenerosAPI: () => Promise<any>;
+    searchMusicAPI: (
+      dataSearch: IDataSearch
+    ) => Promise<IMusicAPIResultMusic[]>;
+    searchMusicByGener: (id: string) => Promise<IMusicAPIResultMusic[]>;
+    getPlayListsByName: (name: string) => Promise<IPlayList[]>;
   }
 }

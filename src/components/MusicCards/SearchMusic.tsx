@@ -3,13 +3,7 @@ import { useState, ChangeEvent } from "react";
 type Search = (name: string) => void;
 type Reset = () => void;
 
-function SearchMusic({
-  searchName,
-  reset,
-}: {
-  searchName: Search;
-  reset: Reset;
-}) {
+function SearchMusic({ searchName }: { searchName: Search }) {
   const [search, setSearch] = useState<string>("");
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {

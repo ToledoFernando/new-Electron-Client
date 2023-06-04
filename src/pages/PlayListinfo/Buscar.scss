@@ -1,0 +1,23 @@
+.buscarPlaylist {
+  padding: 40px 0px 20px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+
+  input {
+    background-color: #0e0e0e;
+    padding: 10px 15px;
+    width: 300px;
+    color: #fefefe;
+    border: 0;
+    border-radius: 4px 0px 0px 4px;
+  }
+
+  button {
+    background-color: #202020;
+    padding: 10px 15px;
+    color: #fefefe;
+    border: 0;
+    border-radius: 0px 4px 4px 0px;
+  }
+}

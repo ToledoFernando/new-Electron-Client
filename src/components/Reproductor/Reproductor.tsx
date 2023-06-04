@@ -1,5 +1,10 @@
 import { useRef, useEffect, useState, ChangeEvent } from "react";
 import { IMusicProps } from "./types";
+
+import { Nodo as NodoLocal } from "../../store/user/ListClass";
+import { Nodo as NodoBBDD } from "../../pages/PlayListinfo/ClassList";
+// import { IMusicUrl } from "../../store/music/Musictype";
+
 import ControlAudio from "./ControlAudio";
 import { loading, musicaActual } from "../../store/music/Music";
 import audioLogo from "../../../public/musicaLogo.png";
@@ -114,6 +119,7 @@ function Reproductor({
   const [isPlay, setIsPlay] = useState<boolean>(true);
   const [replay, setReplay] = useState<boolean>(false);
   const state = musicaActual((state) => state);
+  const load = loading((state) => state);
   const infoProblemData = infoProblemStore((state) => state);
 
   const time = (num: number) => {
@@ -140,7 +146,7 @@ function Reproductor({
     }
   };
 
-  const finishAudio = () => {
+  const finishAudio = async () => {
     if (replay) {
       if (audioElement.current === null) return;
       audioElement.current.pause();
@@ -149,7 +155,19 @@ function Reproductor({
       return;
     } else {
       if (state.sig === null) return setIsPlay(false);
-      state.setMusica(state.sig);
+      if (state.musica === null) return setIsPlay(false);
+      //Si es musica local (con buffer) se reproduce la siguiente
+      if ("buffer" in state.musica) state.setMusica(state.sig);
+      //De lo contrario hace la peticion para la siguiente musica
+      else {
+        load.setLoad();
+        await state.getMusicYT(
+          state.sig.value,
+          state.sig.prevoius,
+          state.sig.next
+        );
+        load.setLoad();
+      }
     }
   };
 

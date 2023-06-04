@@ -14,7 +14,6 @@ function History() {
     const historial = localStorage.getItem("historyMusic");
     if (!historial) return downloadStore.setHistory([]);
     downloadStore.setHistory(JSON.parse(historial));
-    return () => console.log("OAIWDBOIAWBD");
   }, []);
   return (
     <div className="history">
@@ -35,7 +34,7 @@ function History() {
 
       <div className="histori-download">
         {downloadStore.history.length === 0 ? (
-          <h1>No se encontro musicas descargadas</h1>
+          <h1 className="no-history">No se encontro musicas descargadas</h1>
         ) : null}
         {downloadStore.history?.map((name, index) => (
           <HistoryCard position={index} key={index} name={name} />
