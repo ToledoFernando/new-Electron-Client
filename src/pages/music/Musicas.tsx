@@ -57,19 +57,7 @@ function Musicas() {
     }
   };
 
-  return funct();
-
-  // return (
-  //   <div className="musics">
-  //     <Barra />
-  //     <div className="musicContainer">
-  //       {apiStore.data.length &&
-  //         data.map((element: IMusicAPIResult, index) => (
-  //           <MusicGroup musica={element} key={index} />
-  //         ))}
-  //     </div>
-  //   </div>
-  // );
+  return <>{funct()}</>;
 }
 
 export default Musicas;
