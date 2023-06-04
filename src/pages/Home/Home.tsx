@@ -1,29 +1,24 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import Typewriter from "typewriter-effect";
 import iconCopy from "../../../public/copy.svg";
 import "./Home.scss";
 
 function Home() {
-  const title = useRef<HTMLDivElement>(null);
-
   const copyEmail = async () => {
     await navigator.clipboard.writeText("toledof764@gmail.com");
     toast.success("Email Copiado");
   };
-  // useEffect(() => {
-  //   if (title.current) {
-  //     Typewriter(title.current, {
-  //       strings: ["Bienvenido a ElectronPlayer v2.0"],
-  //       autoStart: true,
-  //       loop: false,
-  //     });
-  //   }
-  // }, []);
+
+  useEffect(() => {
+    setTimeout(
+      () => localStorage.setItem("firstLogin", JSON.stringify(true)),
+      600
+    );
+  }, []);
   return (
     <div className="AppHome">
       <div className="AppHome__title">
-        {/* <div onClick={() => toast("My first toast")} ref={title} /> */}
         <Typewriter
           onInit={(typewriter) => {
             typewriter.typeString("Bienvenido a ElectronPlayer v2.0").start();

@@ -12,17 +12,21 @@ import { Toaster } from "sonner";
 import History from "./pages/history/History.tsx";
 import { download } from "./store/download/Download.ts";
 import Bar from "./components/BAR/Bar.tsx";
-import "./Root.css";
 import PlayList from "./pages/PlayList/PlayList.tsx";
 import PlayListInfo from "./pages/PlayListinfo/PlayListInfo.tsx";
 import MusicProblem from "./components/MusicProblem/MusicProblem.tsx";
 import { infoProblemStore } from "./store/infoProblema/infoProblema.ts";
+import { useNavigate } from "react-router-dom";
+import { genetoStore } from "./store/generos/genero.ts";
+import "./Root.css";
 
 function App() {
   const load = loading((state) => state.loadingMusic);
   const musica = musicaActual((state) => state.musica);
   const stateDownload = download((state) => state);
   const isProblem = infoProblemStore((state) => state.isProblem);
+  const gener = genetoStore((state) => state);
+  const navigate = useNavigate();
 
   const newPorsentaje = (a: any, b: number) => {
     stateDownload.setPorcentaje(b);
@@ -33,9 +37,11 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(window);
     window.received("newProgress", newPorsentaje);
     window.received("finishProgress", finishDownload);
+    gener.setGenetos();
+    const firstLogin = localStorage.getItem("firstLogin");
+    if (firstLogin) navigate("/music");
   }, []);
   return (
     <div className="App">

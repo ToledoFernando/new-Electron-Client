@@ -38,7 +38,7 @@
     width: max-content;
     gap: 30px;
     flex: 1fr;
-    margin: 20px 0px;
+    margin: 0px 0px 20px;
 
     &::-webkit-scrollbar {
       -webkit-appearance: none;
@@ -62,7 +62,8 @@
       border-radius: 10px;
     }
 
-    .card_music {
+    .card_music,
+    .card_music_active {
       cursor: pointer;
       width: 200px;
       height: 250px;
@@ -85,7 +86,6 @@
       }
 
       .name_long {
-        // background-color: red;
         font-size: 13px;
       }
 
@@ -93,6 +93,11 @@
         background-color: #0e0e0e5a;
       }
     }
+  }
+
+  .card_music_active {
+    border-radius: 4px !important;
+    background-color: #0e0e0ea7 !important;
   }
 
   .menos {

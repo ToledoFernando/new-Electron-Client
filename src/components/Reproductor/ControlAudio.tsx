@@ -1,12 +1,14 @@
 import {
-  useState,
   useEffect,
   useRef,
   ChangeEvent,
-  ReactEventHandler,
   Dispatch,
   SetStateAction,
 } from "react";
+
+import { Nodo as NodoBBDD } from "../../pages/PlayListinfo/ClassList";
+import { Nodo as NodoLocal } from "../../store/user/ListClass";
+
 import { loading, musicaActual } from "../../store/music/Music";
 import playIcon from "../../../public/play.png";
 import pausa from "../../../public/pausa.png";
@@ -36,6 +38,7 @@ function ControlAudio({
 }) {
   const audioTag = useRef<HTMLInputElement>(null);
   const musica = musicaActual((state) => state);
+  const load = loading((state) => state);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (audioTag.current === null) return;
@@ -57,12 +60,48 @@ function ControlAudio({
     });
   }, [audio]);
 
+  const changeMusicFollowing = async (
+    musicaNode: NodoLocal | NodoBBDD | null
+  ) => {
+    if (musicaNode === null) return;
+    if (musicaNode instanceof NodoBBDD) {
+      load.setLoad();
+      await musica.getMusicYT(
+        musicaNode.value,
+        musicaNode.prevoius,
+        musicaNode.next
+      );
+      load.setLoad();
+    }
+    if (musicaNode instanceof NodoLocal) {
+      musica.setMusica(musicaNode);
+    }
+  };
+
+  const changeMusicPrevious = async (
+    musicaNode: NodoBBDD | NodoLocal | null
+  ) => {
+    if (musicaNode === null) return;
+    if (musicaNode instanceof NodoBBDD) {
+      load.setLoad();
+      await musica.getMusicYT(
+        musicaNode.value,
+        musicaNode.prevoius,
+        musicaNode.next
+      );
+      load.setLoad();
+    }
+    if (musicaNode instanceof NodoLocal) {
+      musica.setMusica(musicaNode);
+    }
+  };
+
   return (
     <div className="controlAudio">
       <button
         id="ant"
         className={musica.ant ? "ant" : "null"}
-        onClick={() => musica.ant && musica.setMusica(musica.ant)}
+        onClick={() => musica.ant && changeMusicFollowing(musica.ant)}
         disabled={!musica.ant}
       >
         <img src={sig} alt="" width={25} height={25} />
@@ -77,7 +116,7 @@ function ControlAudio({
 
       <button
         className={musica.sig ? "sig" : "null"}
-        onClick={() => musica.sig && musica.setMusica(musica.sig)}
+        onClick={() => musica.sig && changeMusicPrevious(musica.sig)}
         disabled={!musica.sig}
       >
         <img src={sig} alt="" width={25} height={25} />
